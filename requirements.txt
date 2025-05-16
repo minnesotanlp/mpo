@@ -1,0 +1,12 @@
+accelerate==0.34.2
+datasets
+deepspeed==0.15.4
+natsort
+peft
+python-dotenv
+python-notification
+rich
+rouge-score
+sglang
+transformers>=4.46.0
+wandb

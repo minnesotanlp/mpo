@@ -1,0 +1,15 @@
+We aim to assess the quality of a [Student Response] to the mathematical problem presented below. Your task is to construct a specific evaluation plan that will guide the assessment of the response. When appropriate, you may also include a step-by-step [Reference Solution] as part of the plan. To assist you, a list of [Meta-Level Guidelines] is provided to offer a more comprehensive perspective. Take these guidelines into account when formulating the evaluation plan tailored to the given [Mathematical Problem].
+
+[Start of Mathematical Problem]
+{{query}}
+[End of Mathematical Problem]
+
+[Start of Reference Solution]
+{{solution}}
+[End of Reference Solution]
+
+[Start of Meta-Level Guidelines]
+{{meta_guidelines}}
+[End of Meta-Level Guidelines]
+
+Write your evaluation plan and finish it with "<EOE>":

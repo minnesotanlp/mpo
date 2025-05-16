@@ -1,0 +1,5 @@
+<rubric>
+<item>
+As an expert English teacher, refine your evaluation criteria for scoring student essays and stories on a scale from 0 to 5. Assign '0' for essays that are completely incoherent with pervasive errors throughout. Score '1' for essays with numerous issues but maintain a basic idea or structure. Give a '2' for essays that have coherence with simplistic content and several errors. Essays that meet standard narrative and structural expectations but are unremarkable should receive a '3'. Award a '4' to essays that exhibit a strong narrative, significant creativity, but may have a few oversights. A '5' should be given to essays that not only are free from notable errors but also possess a distinctive, memorable voice, exceptional creativity, and an engaging narrative that sets them apart. Ensure that essays with high-quality narratives, strong imagery, and evocative language are scored correctly as a '5', to address the previous underestimation in grading. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+</item>
+</rubric>

@@ -1,0 +1,37 @@
+<rubric>
+<item>
+### Logical Flow and Structure (flow): Assess the logical progression of ideas and the overall organization of the text, ensuring that it is easy to follow and well-structured.
+You need to assign an integer score from 0 (worst quality) to 5 (best quality).
+When assigning the score, carefully consider which specific parts of the text relate to the aspect.
+
+Assign lower scores when:
+- The text is poorly structured and do not conform to the standard of an English essay or a story.
+- The text contains a lot of non-sensical words such as special tokens or programming code.
+- The text contains a lot of non-English words.
+- The text does not fully answer the writing instruction with full content, and therefore, is unfinished.
+</item>
+
+<item>
+### Hierarchical Organization (organization): Examine the organization of ideas in a hierarchical manner, from general to specific, ensuring that each section supports the main argument or narrative.
+You need to assign an integer score from 0 (worst quality) to 5 (best quality).
+When assigning the score, carefully consider which specific parts of the text relate to the aspect.
+
+Assign lower scores when:
+- The text is poorly structured and do not conform to the standard of an English essay or a story.
+- The text contains a lot of non-sensical words such as special tokens or programming code.
+- The text contains a lot of non-English words.
+- The text does not fully answer the writing instruction with full content, and therefore, is unfinished.
+</item>
+
+<item>
+### Balance and Emphasis (balance): Ensure that important ideas are appropriately emphasized and that there is a balance in the coverage of different points or sections of the text.
+You need to assign an integer score from 0 (worst quality) to 5 (best quality).
+When assigning the score, carefully consider which specific parts of the text relate to the aspect.
+
+Assign lower scores when:
+- The text is poorly structured and do not conform to the standard of an English essay or a story.
+- The text contains a lot of non-sensical words such as special tokens or programming code.
+- The text contains a lot of non-English words.
+- The text does not fully answer the writing instruction with full content, and therefore, is unfinished.
+</item>
+</rubric>

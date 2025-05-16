@@ -1,0 +1,5 @@
+<rubric>
+<item>
+Determine the level of ethical reasoning presented, using a scale from 0 to 5. A score of 0 denotes a complete lack of ethical thought, while a 5 represents the pinnacle of ethical analysis, including a nuanced understanding of conflicts between preserving life and respecting property rights. Scores of 1 or 2 are reserved for rudimentary ethical awareness, which fails to probe deeper into such ethical tensions. A score of 3 suggests a moderate grasp of ethical principles, whereas a 4 indicates thorough consideration of complex ethical matters, such as justifying theft for survival by balancing moral imperatives. The scoring paradigm must cover the entire spectrum of ethical reasoning, amending previous underestimations, particularly in scenarios involving survival-based theft, ensuring accurate and fair assessment.
+</item>
+</rubric>
