@@ -9,14 +9,14 @@ from notification import Pushover
 from peft import LoraConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer, HfArgumentParser
 
-from trl import ModelConfig, MPOConfig, MPOTrainer, ScriptArguments, get_kbit_device_map, get_quantization_config
-from trl.extras.mpo import get_task_dataset
+from trl import ModelConfig, MPOPPOConfig, MPOPPOTrainer, ScriptArguments, get_kbit_device_map, get_quantization_config
+from trl.extras.mpoppo import get_task_dataset
 from trl.models.modeling_value_head import AutoModelForCausalLMWithValueHead
 from trl.trainer.utils import SIMPLE_CHAT_TEMPLATE
 
 
 """
-See launch script in scripts/mpo_experiments/launch_mpo.sh
+See launch script in scripts/mpoppo_experiments/launch_mpoppo.sh
 """
 
 
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     pushover = Pushover(user=os.environ["PUSHOVER_USER"], token=os.environ["PUSHOVER_TOKEN"])
 
     seed_everything(42)
-    parser = HfArgumentParser((ScriptArguments, MPOConfig, ModelConfig))
+    parser = HfArgumentParser((ScriptArguments, MPOPPOConfig, ModelConfig))
     script_args, training_args, model_args = parser.parse_args_into_dataclasses()
     if os.path.exists(training_args.output_dir):
         raise ValueError(
@@ -149,7 +149,7 @@ if __name__ == "__main__":
             sound="magic",
         )
     try:
-        trainer = MPOTrainer(
+        trainer = MPOPPOTrainer(
             args=training_args,
             processing_class=tokenizer,
             model=policy,

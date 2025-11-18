@@ -15,7 +15,7 @@ from rich.progress import track
 
 load_dotenv()  # take environment variables from .env.
 
-exp_name = sys.argv[1]  # "mpo_variations" "rm_32" "rm_72" "32b_32bvs32b_72b" ""72b_32bvs72b_72b""
+exp_name = sys.argv[1]  # "mpoppo_variations" "rm_32" "rm_72" "32b_32bvs32b_72b" ""72b_32bvs72b_72b""
 num_matches = 2000
 task_name = "summarization"  # "essay_writing"
 print(f"exp_name is: {exp_name}")
@@ -36,7 +36,7 @@ elif exp_name == "rm_72":
         "base-1.5b": "ModelD",
         "iter0-72b": "ModelE",
     }
-elif exp_name == "mpo_variations":
+elif exp_name == "mpoppo_variations":
     model_names_to_annon = {
         "32b_32b": "ModelA",
         "32b_72b": "ModelB",
@@ -53,7 +53,7 @@ elif exp_name == "72b_32bvs72b_72b":
         "72b_32b": "ModelA",
         "72b_72b": "ModelB",
     }
-elif exp_name == "mpo_vs_oracle":
+elif exp_name == "mpoppo_vs_oracle":
     model_names_to_annon = {
         "32b_72b": "ModelB",
         "72b_72b": "ModelD",

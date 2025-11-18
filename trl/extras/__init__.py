@@ -19,10 +19,12 @@ from ..import_utils import _LazyModule
 
 _import_structure = {
     "best_of_n_sampler": ["BestOfNSampler"],
+    "mpoppo": [],
 }
 
 if TYPE_CHECKING:
     from .best_of_n_sampler import BestOfNSampler
+    from . import mpoppo
 else:
     import sys
 

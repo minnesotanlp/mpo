@@ -2,7 +2,7 @@ import json
 import os
 import pickle
 
-from trl.extras import mpo
+from trl.extras import mpoppo
 
 
 def _fix_fracs(string):
@@ -235,7 +235,7 @@ def compute_acc(path):
 
 if __name__ == "__main__":
     query_to_gold_answer_path = os.path.join(
-        os.path.dirname(mpo.__file__), "corpora", "MATH", "query_to_gold_answer.pkl"
+        os.path.dirname(mpoppo.__file__), "corpora", "MATH", "query_to_gold_answer.pkl"
     )
     with open(query_to_gold_answer_path, "rb") as f:
         query_to_gold_answer = pickle.load(f)

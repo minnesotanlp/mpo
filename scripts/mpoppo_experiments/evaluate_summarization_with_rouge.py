@@ -7,7 +7,7 @@ import numpy as np
 from rouge_score import rouge_scorer
 from tqdm import tqdm
 
-from trl.extras import mpo
+from trl.extras import mpoppo
 
 
 def _compute_rouge(gen):
@@ -34,7 +34,7 @@ def compute_rouge(path):
 
 if __name__ == "__main__":
     query_to_clean_summ_path = os.path.join(
-        os.path.dirname(mpo.__file__), "corpora", "BillSum", "query_to_clean_summ.pkl"
+        os.path.dirname(mpoppo.__file__), "corpora", "BillSum", "query_to_clean_summ.pkl"
     )
     with open(query_to_clean_summ_path, "rb") as f:
         query_to_clean_summ = pickle.load(f)

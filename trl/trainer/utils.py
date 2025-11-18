@@ -52,7 +52,7 @@ from transformers.utils import (
     is_torch_xpu_available,
 )
 
-from ..extras.mpo import RewardModel
+from ..extras.mpoppo import RewardModel
 from ..import_utils import is_rich_available
 from ..trainer.model_config import ModelConfig
 
@@ -552,7 +552,7 @@ class DPODataCollatorWithPadding:
 
 
 @dataclass
-class MPODataCollatorWithPadding:
+class MPOPPODataCollatorWithPadding:
     tokenizer: PreTrainedTokenizerBase
     padding: Union[bool, str, PaddingStrategy] = True
     max_length: Optional[int] = None
@@ -1286,7 +1286,7 @@ def get_reward(
     )
 
 
-def get_reward_for_mpo(
+def get_reward_for_mpoppo(
     model: RewardModel,
     queries: list[str],
     responses: list[str],
