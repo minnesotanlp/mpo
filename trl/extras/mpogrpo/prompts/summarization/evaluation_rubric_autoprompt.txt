@@ -1,0 +1,5 @@
+<rubric>
+<item>
+In assessing the quality of summaries, apply scores from '0' to '5' where '0' is the lowest and '5' is the highest. Recognize that even simplified summaries can convey the essence of complex topics and should be scored higher if they accurately encapsulate the central themes without distortion. Conversely, scores of '4' or '5' should be reserved for summaries that include essential details and nuances of the original content and are both precise and concise. Scores of '0' through '3' should reflect varying degrees of deviation from this standard, with the lowest scores indicating summaries that substantially misrepresent the source material either by oversimplifying or omitting crucial details and the higher scores within this range reflecting increasing alignment with the original content's complexity and depth.
+</item>
+</rubric>

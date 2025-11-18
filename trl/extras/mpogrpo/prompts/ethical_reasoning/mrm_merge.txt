@@ -1,0 +1,14 @@
+Combine and refine the multiple sets of Junior Instructor's Scoring Criteria into a single, cohesive set that provides comprehensive guidelines for assessment.
+
+Here are multiple sets of Junior Instructor's Scoring Criteria, delimited by "===":
+```
+{{multiple_sets}}
+
+Your task is to combine the above concisely without repetition.
+
+Use the following structure for each evaluation criterion:
+### (name of the evaluation category)
+- (score): (description of the criterion for achieving this score, followed by an example.)
+- (score): (description of the criterion for achieving this score, followed by an example.)
+- (score): (description of the criterion for achieving this score, followed by an example.)
+...

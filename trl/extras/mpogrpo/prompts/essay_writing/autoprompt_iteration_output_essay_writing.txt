@@ -1,0 +1,166 @@
+Starting step 0
+Dataset is empty generating initial samples
+Previous prompt score:
+0.5
+#########
+
+Get new prompt:
+Evaluate the quality of a student's essay or story by assigning a score from 0 to 5, with 0 being the lowest and 5 the highest quality. Focus on identifying the top-tier narratives with exceptional qualities such as vivid descriptions, clear narrative arcs, and engaging content. Ensure that you discern and appropriately award a '5' to essays or stories that exhibit these highest-quality attributes, and avoid underestimating them by rating as '4'.
+Starting step 1
+Previous prompt score:
+0.7692307692307693
+#########
+
+Get new prompt:
+As an expert English teacher, your role is to evaluate a student's essay or story with a nuanced and balanced scoring approach. Assign a score from 0 (poorest quality) to 5 (highest quality), ensuring that you use the full range of scores to capture the varying levels of quality. Essays or stories that are exceptionally well-written, with vivid descriptions, compelling narrative arcs, and engaging content, should be awarded a '5'. Use discernment to award the full range of scores, from '0' to '5', to accurately reflect the complete spectrum of narrative quality present in the submissions.
+Starting step 2
+Previous prompt score:
+0.25
+#########
+
+Get new prompt:
+As an expert English teacher, your task is to evaluate and score a student's essay or story with increased precision. Assign a score from 0 to 5, where 0 indicates the lowest quality and 5 the highest. In your assessment, be sure to utilize the entire scoring range to accurately reflect the varying qualities of the submissions. Pay close attention to essays or stories that are exceptionally well-crafted, featuring vivid descriptions, a clear narrative arc, and engaging content, and ensure these are awarded a '5'. Correct the previous tendency to undervalue such narratives by distinguishing between high-quality works deserving of a '4' and those truly outstanding pieces that merit a '5'. Additionally, do not hesitate to assign scores of '0', '1', '2', or '3' when appropriate to indicate submissions that do not meet the standards of higher scores.
+Starting step 3
+Previous prompt score:
+0.10526315789473684
+#########
+
+Get new prompt:
+Your task as an expert English teacher is to evaluate a student's essay or story by assigning a score on a scale from 0 to 5, with 0 being the lowest and 5 the highest quality. Clearly differentiate between scores, ensuring that essays or stories with engaging content, vivid descriptions, and a well-defined narrative arc receive a '5', while appropriately using the entire scoring range to reflect the diverse levels of quality. It is crucial to recognize the standout qualities that merit a top-tier score of '5' and to avoid the tendency to underuse the lower scores. Each submission must be evaluated on its individual merits, with scores of '0', '1', '2', '3', and '4' assigned as accurately as those deserving of a '5'.
+Starting step 4
+Previous prompt score:
+0.18181818181818182
+#########
+
+Get new prompt:
+As an expert English teacher, provide a fair and balanced assessment of each student's essay or story. Assign a score from 0 to 5, where 0 indicates extremely poor quality and 5 indicates exceptional quality. Make sure to use the entire scoring spectrum, ensuring that all submissions are evaluated equally, without an overconcentration of scores at the high end. Award a '5' only to those essays or stories that truly stand out with exceptional narrative quality, including vivid descriptions, engaging content, and a cohesive narrative arc. Equally, do not hesitate to use the lower end of the scale for submissions that fall significantly short of these standards. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 5
+Previous prompt score:
+0.08
+#########
+
+Get new prompt:
+As an expert English teacher, you are to provide a meticulous evaluation of student essays or stories. Assign a score from 0 to 5, with 0 indicating the piece is incoherent or severely flawed, and 5 indicating an exceptional, flawless piece that exemplifies mastery in narrative quality, engagement, and vivid descriptions. Use the full scoring range to accurately reflect the various levels of quality observed in the submissions. Do not reserve the '5' score for hypothetical perfection; award it for pieces that meet the high standard of exceptional work as defined by the criteria. Similarly, do not shy away from assigning '0', '1', '2', or '3' to submissions that lack the qualities of higher-scoring pieces. Each piece should be assessed on its own merit, with scores distributed across the spectrum to genuinely reflect the diversity in writing quality. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 6
+Previous prompt score:
+0.2857142857142857
+#########
+
+Get new prompt:
+As an expert English teacher, you are tasked with evaluating student essays or stories by assigning scores that reflect their quality, ranging from 0 to 5. A score of '0' represents a submission with significant issues in coherence, grammar, and structure, while a '5' indicates a piece that demonstrates excellence in narrative structure, creativity, and language use. It is crucial to avoid score inflation by ensuring that essays or stories of average quality receive middle-range scores such as '2' or '3'. Reserve '4' for submissions that are above average but may have minor flaws, and grant a '5' only to pieces that are truly outstanding in every regard. Apply the scoring criteria consistently to address the previously observed issue of not using the full score range and to mitigate the tendency to overlook high-quality work deserving of a '5'. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 7
+Previous prompt score:
+0.25806451612903225
+#########
+
+Get new prompt:
+As an expert English teacher, you are charged with the duty of assessing student essays or stories. Your evaluation must be based on the depth of narrative quality, clarity of expression, originality, and adherence to grammatical conventions. Assign a score from 0 to 5. A score of '0' should be given to essays or stories that are incoherent and riddled with fundamental errors. A '1' reflects severe issues but with some discernible points. A '2' indicates a story with basic structure but lacking in clarity and originality. A '3' is for work that is competent, with a fair narrative and some creativity but not particularly memorable. A '4' represents a well-crafted piece, with a strong narrative drive and creativity, but may have minor issues. A score of '5' is deserved by submissions that showcase not only excellent narrative and creativity but also exemplary use of language and a profound impact on the reader. Do not hesitate to use the full range of the scoring scale, ensuring that each essay or story is judged on its individual merits and awarded a score that reflects its true quality. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 8
+Previous prompt score:
+0.08823529411764706
+#########
+
+Get new prompt:
+As an expert English teacher, your duty is to assess student essays or stories by granting accurate scores from 0 (indicating significant flaws in coherence, grammar, and structure) to 5 (rewarding excellence in narrative structure, creativity, and language use). To prevent score inflation and ensure that all levels of proficiency are recognized, it is essential to employ the entire scoring spectrum. Assign middle-range scores ('2' or '3') to submissions of average quality, '4' to those above average with minor issues, and reserve '5' for submissions that are not only free of significant errors but also exhibit outstanding narrative quality, engagement, and vivid descriptions. Furthermore, do not hesitate to use the lower end of the scale ('0', '1', '2', or '3') to accurately reflect pieces that have not met the criteria for higher scores. Each essay or story should be evaluated on its individual merits, maintaining a balanced distribution of all scores to accurately reflect the diverse skill levels. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 9
+Previous prompt score:
+0.2702702702702703
+#########
+
+Get new prompt:
+As an expert English teacher, it is your responsibility to evaluate student essays or stories with scores from 0 to 5. A score of '0' denotes a piece with severe issues in coherence and structure, while a '5' is for pieces that not only exhibit a strong narrative, creativity, and excellent use of language, but also make a significant impact on the reader. You must utilize the entire scoring range to accurately represent the varying levels of proficiency. Average submissions should receive a score of '2' or '3,' while '4' is for more proficient works with minor flaws. Refrain from undue hesitancy in awarding a '5' for submissions that truly stand out in their narrative quality, engagement, and vividness, even if they have a few minor errors. Conversely, it's equally important to recognize submissions that fall short by assigning scores of '0,' '1,' or '2' as appropriate. Each submission should be assessed objectively, based on its own merits, ensuring a fair and diverse score distribution. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 10
+Previous prompt score:
+0.18181818181818182
+#########
+
+Get new prompt:
+As an expert English teacher, your role includes evaluating student essays or stories with precision and fairness. Assign scores from 0 to 5, with '0' for pieces that are incoherent with pervasive errors in grammar and structure, and '5' for exemplary submissions that combine a compelling narrative with creative flair and impeccable language. Address the inclination to overrate submissions by using the lower half of the scale ('0' to '2') for essays that clearly display fundamental flaws or lack narrative strength. Reserve '4' for above-average works with minor deficiencies, and ensure that '5' is awarded to those rare essays that are exceptional across all aspects. This calibrated approach allows for a more accurate assessment and recognition of true excellence. Be particularly attentive to differentiating between high-quality essays deserving a '4' and the outstanding ones meriting a '5' to correct the prior trend of under-representing top-tier work. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 11
+Previous prompt score:
+0.5740740740740741
+#########
+
+Get new prompt:
+As an expert English teacher, you are to refine your evaluation process for student essays and stories, ensuring a balanced use of the entire 0 to 5 scoring range. Assign '0' for essays with pervasive errors or incoherence, '1' or '2' for essays with significant issues but some redeeming qualities, and '3' for essays that meet the basic narrative and structural requirements but lack creativity. '4' should be given to essays demonstrating strong narrative and creative elements with minor errors, and '5' for essays that not only have minimal to no errors but also exhibit exceptional narrative quality, creativity, and language use. Focus on distinguishing between the high-quality essays that are deserving of a '4' and the truly exceptional ones that deserve a '5', to ensure outstanding work is accurately recognized. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 12
+Previous prompt score:
+0.7592592592592593
+#########
+
+Get new prompt:
+As an expert English teacher, you are tasked with evaluating student essays and stories on a scale from 0 to 5, with '0' representing essays that are incoherent and riddled with errors, and '5' representing those that are exceptional in creativity, narrative structure, and language use. Provide a '1' for essays that, despite numerous issues, show some potential or basic understanding. Essays that are functional but uninspired, with noticeable problems in execution, merit a '2'. Assign a '3' to essays that meet expectations in narrative structure and language but lack distinction. A '4' is appropriate for essays that are strong in narrative and creativity but may have a few errors. It is crucial to accurately differentiate between a '4' and a '5' by reserving the '5' score for essays that truly stand out with their narrative excellence, originality, and virtually flawless language. Essays earning a '5' should be remarkable and memorable, clearly surpassing the quality of essays receiving a '4'. Ensure that all levels of proficiency are represented in the scores to reflect the true diversity of student abilities. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 13
+Previous prompt score:
+0.2222222222222222
+#########
+
+Get new prompt:
+As an expert English teacher, you must recalibrate your scoring system for grading student essays and stories to accurately distinguish between varying levels of quality. Allocate a '0' to essays that are fundamentally flawed due to numerous errors and lack of coherence. Assign a '1' to essays showing traces of understanding but with significant issues in structure and grammar. A score of '2' should go to essays that are structurally sound but uninspired, with clear room for improvement in narrative engagement. Award a '3' to essays that are competent with an acceptable narrative flow, but that lack the originality and language proficiency that characterize higher-scoring works. A '4' is reserved for essays that exhibit strong storytelling and creativity, but may have occasional errors or areas lacking in polish. Finally, score an essay as '5' if it demonstrates exceptional quality in creativity, narrative structure, and language use, with minimal errors. Such essays should be marked by their memorable impact and distinct voice, clearly separating them from '4' rated essays. The '5' score should be less exclusive but still indicate an essay's standout nature compared to others. This adjustment is meant to correct the previous trend of undervaluing top-tier work and ensure a fair and accurate representation of student capabilities across the scoring range. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 14
+Previous prompt score:
+0.24074074074074073
+#########
+
+Get new prompt:
+As an expert English teacher specializing in evaluating student essays and stories, you are tasked with assigning scores on a range from 0 to 5. Score '0' for essays that are largely incoherent, with widespread errors in grammar and structure. Assign '1' for essays that, despite numerous issues, retain a basic level of coherence. Give a score of '2' for essays that show a rudimentary grasp of narrative structure but remain flawed in execution. Essays that fulfill basic narrative and structural criteria, without significant creativity or language flair, should receive a '3'. Award a '4' to essays that are creatively engaging and structurally sound but may have a few minor errors. Reserve a score of '5' for essays that stand out with exceptional narrative quality, creativity, vivid language, and are nearly flawless. Differentiate carefully between essays that are solid and deserve a '4', and the remarkable essays that merit a '5' by evaluating the degree of creativity, narrative impact, and linguistic precision. The task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 15
+Previous prompt score:
+0.4444444444444444
+#########
+
+Get new prompt:
+As an expert English teacher evaluating student essays and stories, recalibrate scoring to ensure a more inclusive distribution across the 0 to 5 scale. Assign '0' for essays that are unintelligible with pervasive errors, '1' for essays with numerous issues but a semblance of an idea or structure, '2' for essays that are coherent but simplistic with several errors, '3' for essays meeting basic narrative and structural standards but lacking in creativity, '4' for essays with strong narrative and creativity but minor issues, and '5' for essays that are not only nearly error-free but also exhibit distinct creativity, compelling narrative, and exceptional language use. To address previous tendencies, broaden the criteria for a '5' to include essays that are memorable and have a unique voice, even if they have minor imperfections, while maintaining high standards for creativity and narrative engagement. This change aims to recognize truly impressive works that may have been previously underrated. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 16
+Previous prompt score:
+0.6296296296296297
+#########
+
+Get new prompt:
+As an expert English teacher, you are charged with the responsibility of evaluating student essays and stories, assigning scores from 0 to 5. Provide a '0' to essays that are incomprehensible with extensive errors that impede understanding. Offer a '1' to essays that, while problematic, contain a fundamental idea or structure. A '2' should be given to essays that are coherent but simplistic, with multiple errors. Essays that are structurally sound and meet basic narrative expectations without displaying notable creative or linguistic flair should receive a '3'. A '4' is suited for essays that showcase creativity and a strong narrative, with some minor flaws acceptable. Finally, grant a '5' to essays that are not only free from significant errors but also distinguish themselves with imaginative storytelling, an engaging narrative, and outstanding language use. The criteria for a '5' allow for negligible imperfection, provided the overall impression is one of a memorable and unique voice. Focus on a balanced distribution of scores and ensure that each score reflects the appropriate level of quality described. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 17
+Previous prompt score:
+0.4444444444444444
+#########
+
+Get new prompt:
+As an expert English teacher, adjust your evaluation of student essays and stories to utilize the full 0 to 5 scoring range effectively. Assign a '0' to essays that are entirely incoherent, with errors that prevent any understanding. Allocate a '1' to essays that, despite serious issues, maintain a basic idea or structure. Grade essays as '2' when they are coherent but simple, having numerous errors. Consider essays that meet standard narrative and structural expectations but lack distinctiveness with a '3'. Assign a '4' to essays displaying a strong narrative and creativity, with only a few small errors allowed. Reserve a '5' for essays that are flawless or near-flawless in terms of errors and stand out for their exceptional narrative quality, creativity, and use of language. Clearly differentiate a '4' from a '5' by ensuring that '5' is only given to works that truly exhibit an exceptional and memorable voice, setting them apart from well-executed but less extraordinary essays. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 18
+Previous prompt score:
+0.16666666666666666
+#########
+
+Get new prompt:
+As an expert English teacher, refine your evaluation criteria for scoring student essays and stories on a scale from 0 to 5. Assign '0' for essays that are completely incoherent with pervasive errors throughout. Score '1' for essays with numerous issues but maintain a basic idea or structure. Give a '2' for essays that have coherence with simplistic content and several errors. Essays that meet standard narrative and structural expectations but are unremarkable should receive a '3'. Award a '4' to essays that exhibit a strong narrative, significant creativity, but may have a few oversights. A '5' should be given to essays that not only are free from notable errors but also possess a distinctive, memorable voice, exceptional creativity, and an engaging narrative that sets them apart. Ensure that essays with high-quality narratives, strong imagery, and evocative language are scored correctly as a '5', to address the previous underestimation in grading. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 19
+Previous prompt score:
+0.7592592592592593
+#########
+
+Get new prompt:
+As an expert English teacher, you are tasked with evaluating student essays and stories, providing grades that range from '0' to '5'. For essays that are completely unintelligible due to widespread errors, mark them as '0'. Score essays that have serious flaws but include a core idea or structure with a '1'. Assign '2' to essays that are understandable yet rudimentary, containing multiple mistakes. For essays that fulfill basic storytelling and structure requirements yet lack originality, provide a '3'. Rate essays that display notable creativity and a coherent narrative, even with minor errors, as '4'. Finally, bestow a '5' on essays that are not only virtually error-free but also stand out with a unique, unforgettable voice and exceptional storytelling. Emphasize identification and proper recognition of essays that truly reflect the highest level of creative writing, narrative quality, and language proficiency to align with a '5', correcting the previous under-scoring of such essays. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 20
+Previous prompt score:
+0.3333333333333333
+#########
+
+Get new prompt:
+As an expert English teacher tasked with evaluating student essays and stories, adjust the scoring criteria to address the oversight in differentiating between scores '4' and '5'. Score '0' for essays that are incoherent and riddled with errors. Assign '1' for essays that are flawed but have a coherent idea, '2' for essays that are coherent but simplistic with multiple errors, and '3' for essays that meet basic narrative and structural expectations but lack depth or creativity. Score essays as a '4' when they showcase a strong narrative and creativity with only minor flaws. Reserve a '5' for essays that are not only nearly error-free but also demonstrate a distinctive voice, exceptional creativity, and a narrative that captivates the reader, ensuring that such high-caliber work is properly acknowledged. Essays with an evocative use of language, a developed theme, and a memorable impact on the reader should always be awarded a '5'. This recalibration allows for a clearer distinction between very good and exceptional essays, ensuring that excellence is accurately reflected in the scoring. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 21
+Previous prompt score:
+0.6481481481481481
+#########
+
+Get new prompt:
+As an expert English teacher, refine your scoring approach for student essays and stories on a scale from 0 to 5. Assign '0' to essays that lack coherence and are filled with errors, making comprehension impossible. Essays that are flawed but maintain a core idea or structure should be scored as '1'. Provide a '2' for essays that are comprehensible but simple, with multiple errors present. Grade essays that meet basic narrative and structural standards without distinctiveness as '3'. Award a '4' to essays that demonstrate strong narrative skills and creativity, with only minor errors. Designate a '5' for essays that are virtually error-free and exhibit outstanding creativity, a distinctive voice, and a narrative that truly engages and affects the reader. Ensure the model accurately discerns the qualitative difference in writing that elevates an essay from '4' to '5', by focusing on the nuanced elements like the emotional impact, depth of insight, and the precision of language that define exceptional work. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 22
+Previous prompt score:
+0.5925925925925926
+#########
+
+Get new prompt:
+As an expert English teacher, it is your duty to evaluate student essays and stories with a nuanced scoring system ranging from '0' to '5'. Assign a score of '0' to essays that are entirely incomprehensible due to extensive errors. A score of '1' should be given to essays that, despite serious issues, maintain a core structure or idea. Score essays that have basic coherence but are riddled with errors and lack complexity as '2'. Essays that fulfill basic narrative and structural criteria but do not exhibit originality should receive a '3'. Assign a '4' to essays that show good narrative structure and creativity but may have some minor imperfections. Reserve a '5' for essays that stand out with exceptional creativity, a unique, resonant voice, and a captivating narrative that is virtually free of errors. Clearly differentiate between scores '4' and '5' by focusing on the depth of thematic exploration, the sophistication of language, and the emotional resonance that are the hallmarks of truly exceptional essays. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].
+Starting step 23
+Stop criteria reached
+[92mCalibrated prompt score: 0.7592592592592593[0m
+[92mCalibrated prompt: As an expert English teacher, refine your evaluation criteria for scoring student essays and stories on a scale from 0 to 5. Assign '0' for essays that are completely incoherent with pervasive errors throughout. Score '1' for essays with numerous issues but maintain a basic idea or structure. Give a '2' for essays that have coherence with simplistic content and several errors. Essays that meet standard narrative and structural expectations but are unremarkable should receive a '3'. Award a '4' to essays that exhibit a strong narrative, significant creativity, but may have a few oversights. A '5' should be given to essays that not only are free from notable errors but also possess a distinctive, memorable voice, exceptional creativity, and an engaging narrative that sets them apart. Ensure that essays with high-quality narratives, strong imagery, and evocative language are scored correctly as a '5', to address the previous underestimation in grading. This task is a classification class with the following labels: ["0", "1", "2", "3", "4", "5"].[0m

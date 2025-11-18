@@ -1,0 +1,131 @@
+Starting step 0
+Dataset is empty generating initial samples
+Previous prompt score:
+0.1
+#########
+
+Get new prompt:
+Evaluate the quality of a summarization by assigning a score from 0 to 5, where 0 indicates the summary is not at all faithful or concise, and 5 signifies an exemplary summary that is both completely faithful to the original content and highly concise. Specifically, pay close attention to the inclusion of key details that reflect the core points of the original text, and ensure the summary is not overly general. Adjust your scoring to be more aligned with the established ground truth assessment, considering both faithfulness to the details and the conciseness of the expression.
+Starting step 1
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+Classify the quality of the summarization by assigning a label from the array ["0", "1", "2", "3", "4", "5"]. A label of "0" indicates that the summary completely lacks fidelity to the original content or is not concise, while a label of "5" indicates that the summary is exceptionally faithful and concise, containing all key details and core points from the original text without superfluous information. Specifically, ensure that summaries of complex subjects retain the necessary specifics and are not reduced to overly simplistic statements. For summaries that omit critical details from the original content, assign a lower label accordingly. Use the full scale of labels to represent the range of possible summary qualities accurately.
+Starting step 2
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+When evaluating the quality of a summarization, assign a score from 0 to 5, with 0 being the lowest and 5 the highest quality. Ensure that the summary reflects the original content with the necessary detail and specificity but is also succinct. Summaries should not be overly simplistic or omit critical details from the original text. Use the full range of scores to accurately reflect the quality of summaries, avoiding a bias towards lower scores and ensuring that the omission of important content is reflected in the score proportionately to its importance.
+Starting step 3
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+Rate the quality of the summarization on a scale from 0 to 5, considering both the inclusion of essential details and the elimination of extraneous information. A score of 0 indicates that the summary is neither faithful to the original content nor concise, possibly due to being overly simplistic or omitting crucial information. A score of 5 indicates an excellent summary that captures all vital information from the original text while being succinct and avoiding unnecessary details. Ensure that summaries avoid reducing complex subjects to oversimplified statements and that any critical omissions significantly impact the score.
+Starting step 4
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+In evaluating the quality of a summarization, assign a score from the array ["0", "1", "2", "3", "4", "5"], ensuring that each score precisely reflects the degree of faithfulness and conciseness of the summary. A score of "0" corresponds to summaries that are not at all faithful or concise, often due to oversimplification, loss of nuance, or critical omissions of original content details. Conversely, a score of "5" must be reserved for summaries that are exceptionally faithful to the source, demonstrating a high level of specificity and succinctness, while preserving all essential details and complexity of the original text. Scores from "1" to "4" should represent varying degrees of quality in between these two extremes, with each incremental point indicating a summary that more accurately captures the original content's depth and breadth, maintains its complexity without unnecessary generalizations, and excludes any irrelevant information.
+Starting step 5
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+In evaluating summarizations, classify them into categories ranging from "0" to "5". A "0" should reflect summaries that fail to capture any of the original content's complexity or nuance, essentially misrepresenting the source material. A "5" should be attributed to summaries that not only encapsulate all critical details and the depth of the original content but also do so with brevity and precision. Incremental scores from "1" to "4" should correspond to the increasing quality of summaries that progressively better reflect the source's complexity, details, and nuances without including irrelevant information. Avoid reducing summaries to oversimplified statements and ensure that each score takes into account both the richness of the original content and the conciseness of its representation, thus rectifying the previous undervaluation of high-quality summaries.
+Starting step 6
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+In assessing the quality of summaries, apply scores from '0' to '5' where '0' is the lowest and '5' is the highest. Recognize that even simplified summaries can convey the essence of complex topics and should be scored higher if they accurately encapsulate the central themes without distortion. Conversely, scores of '4' or '5' should be reserved for summaries that include essential details and nuances of the original content and are both precise and concise. Scores of '0' through '3' should reflect varying degrees of deviation from this standard, with the lowest scores indicating summaries that substantially misrepresent the source material either by oversimplifying or omitting crucial details and the higher scores within this range reflecting increasing alignment with the original content's complexity and depth.
+Starting step 7
+Previous prompt score:
+0.022222222222222223
+#########
+
+Get new prompt:
+In evaluating summarizations, assign a score between '0' to '5' where each number corresponds to the following quality of summarization: A score of '0' indicates a summary that substantially misrepresents the original content, often due to severe oversimplification or missing key concepts. A '1' signifies a summary that captures the general idea but lacks important details or has inaccuracies. A '2' represents a summary that covers the essence of the topic, but may omit finer details or minor inaccuracies. A '3' is for summaries that convey the core concepts and most details accurately, though it may include some unnecessary information or miss a few minor points. A '4' suggests the summary successfully captures all key elements and details of the topic with only negligible flaws. A '5' is reserved for summaries that are exceptionally accurate, concise, and include all relevant details, capturing both the complexity and the nuance of the original content without distortion or omission.
+Starting step 8
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+Classify summarizations on a scale of '0' to '5', with '0' being the lowest score for summaries that completely misrepresent or fail to capture any aspect of the original content's complexity. Assign a '1' to summaries that, while lacking some essential details, generally represent the main idea of the content. A '2' should be given to summaries that accurately convey the core themes but omit some specific details. Award a '3' to summaries that accurately reflect the central themes and most important details, with minor inaccuracies or slight omissions. Give a '4' for summaries that present all key information and maintain the nuance of the original content but may include trivial information. Reserve a '5' for summaries that not only correctly encapsulate the entire scope, depth, and nuance of the original material with precision and brevity but also avoid any irrelevant details or oversimplification, ensuring a complete and faithful representation of the source.
+Starting step 9
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+When evaluating summaries, assign scores from '0' to '5' based on the accuracy and completeness of the summarization. A '0' indicates that the summary completely misrepresents the original content, lacking any accurate portrayal of the material's complexity or key points. Give a '1' to summaries that capture a basic understanding of the topic but miss significant details or contain notable inaccuracies. A summary that receives a '2' should convey the primary themes correctly but may lack some specifics and finer details. Score a '3' for summaries that accurately present the central ideas and most details, with minor inaccuracies or omissions being the only issues. Award a '4' to summaries that provide a thorough and nuanced representation of the original content, including all critical elements with only minor, negligible oversights. Reserve a '5' for exceptional summaries that demonstrate an accurate, concise, and comprehensive encapsulation of the original material, reflecting its full complexity and depth without any irrelevant information, distortion, or significant omissions. Adjust the model to better recognize the quality of summaries, avoiding underestimation, especially for those that might simplify content but still convey the essence accurately, and ensuring that high-quality summaries are appropriately recognized.
+Starting step 10
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+Assess summaries by assigning scores from '0' to '5', with '0' denoting a summary that fails to capture any key aspects of the original content and '5' indicating a flawless representation of the original material's full depth, including all essential details and nuances. A '1' suggests a summary that communicates the general theme but is severely lacking in detail and accuracy. Assign a '2' to summaries that present the main idea but miss out on important subtleties, though they are largely accurate. A '3' should reflect a summary that covers the central concepts and key details but might include minor inaccuracies or exclude some fine points. Give a '4' to summaries that provide an accurate and comprehensive reflection of the original content, with only slight omissions or trivial inaccuracies. Adjust the scoring rubric to accurately account for summaries that, while possibly simplifying content, do not distort the key themes or details, and ensure that the scores distinguish clearly between the varying degrees of completeness and accuracy.
+Starting step 11
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+When assessing the quality of summaries, assign scores from '0' to '5'. Use '0' for summaries that completely misrepresent the original content, with no grasp of its complexity or key points. A '1' corresponds to summaries that capture a very basic understanding without significant details or with major inaccuracies. Give a '2' to summaries that correctly identify the main idea but are missing multiple important details or contain several inaccuracies. Score a '3' for summaries that represent the essence of the topic and central themes, even if they omit less critical specifics, as long as there is no distortion of key concepts. Award a '4' to summaries that accurately reflect the original content's key themes and details, with only minor and non-essential information missing. Reserve a '5' for summaries that are not only comprehensive and precise but also concise, capturing all essential aspects and nuances of the original material without superfluous details.
+Starting step 12
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+Rate summaries on a scale of '0' to '5' by considering both the essence and the complexities of the original content. A '0' should be given to summaries that are entirely incorrect or miss the point of the original material. Assign a '1' to summaries that get the basic premise but are missing several key elements and details. A '2' indicates a summary that includes the main ideas but lacks some subtleties and may have a few inaccuracies. Give a '3' to summaries that capture the main themes and important details, with only minor inaccuracies or omissions that do not affect the comprehension of the original content. A '4' should be reserved for summaries that accurately reflect the original content's primary themes and most nuances, with minor details potentially missing but not detracting from the overall understanding. Award a '5' to summaries that offer an exceptional representation of the original material, including all essential details and complexities, without any irrelevant additions. This rubric emphasizes the need to avoid underestimating summaries that may simplify but do not oversimplify content, ensuring proper recognition of summaries that succinctly convey the essence and critical nuances of the source material.
+Starting step 13
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+Classify summaries using a scale from '0' to '5', where '0' reflects a total misrepresentation of the original content, failing to capture any of its essence or key points. Assign a '1' for summaries that touch on the general idea but miss critical information and contain substantial inaccuracies. A summary should receive a '2' if it identifies the overarching theme correctly but excludes several important details or has numerous inaccuracies. Rate a summary as '3' if it covers the main concepts and most important details, with some minor inaccuracies that do not fundamentally alter understanding. A '4' is for summaries that accurately render the original content's major themes and many nuances, with only slight omissions or insignificant errors. Give a '5' to summaries that not only accurately distill the original material into a concise form but also retain all essential information and complexities, without distortion or significant omissions.
+Starting step 14
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+In evaluating summaries, assign a score from '0' to '5', with '0' indicating a summary that entirely misrepresents the original content, showing no understanding of its message or key points. A score of '1' should be given to summaries that recognize the general topic but omit critical details and contain significant errors. Rate a summary as '2' when it grasps the main idea but lacks several important details, though minor inaccuracies are present. Assign '3' for summaries that convey the main concepts and important details with a few minor errors that do not significantly alter the understanding of the original material. A '4' score is appropriate for summaries that accurately reflect the central themes and most nuances of the source, with slight omissions or minimal errors. Finally, award a '5' to summaries that are both accurate and concise, capturing all the essential information and complexities of the original content without unnecessary details. Ensure that summaries that effectively distill complex topics into their essence, even if simplified, are not undervalued, provided they maintain the integrity of the original material's core concepts.
+Starting step 15
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+Assign a score from '0' to '5' for each summary, where '0' indicates a summary that fails to capture any relevant information from the original content. Award '1' to summaries that acknowledge the general topic with major inaccuracies or missing core information. A '2' should be given to summaries that identify the central idea or theme, but with substantial omissions or inaccuracies. Rate a summary as '3' if it presents the main ideas and some supporting details, though it may lack finer nuances or have minor errors. Assign '4' for summaries that convey the majority of the original content's essential points and themes, with only minor omissions or factual errors. Bestow a '5' for summaries that are both precise and succinct, encapsulating all critical information and subtle complexities of the original material without extraneous details. It is crucial to differentiate between varying degrees of completeness and accuracy, ensuring that summaries are not undervalued for being concise if they maintain the integrity and nuances of the original material's core concepts.
+Starting step 16
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+Evaluate summaries with a scoring system from '0' to '5' that emphasizes the importance of capturing both the general idea and the specific details of the original content. A score of '0' should be given to summaries that misrepresent or exclude the essence of the original material. Assign '1' to summaries that convey the general theme but omit significant and specific information central to the original context. A '2' is for summaries that capture the main idea and a portion of relevant details, but still miss out on several critical aspects. Rate a summary as '3' if it correctly identifies the overarching theme and includes a majority of the important details, with only a few omissions or slight inaccuracies. A '4' should be awarded to summaries that provide a comprehensive encapsulation of the original content, reflecting both the broad strokes and finer points, with minor details possibly overlooked. Reserve a '5' for summaries that not only accurately summarize all key information and complexities of the original material but also maintain appropriate depth and specificity, without diluting complex subjects into overly simple statements or generalizations.
+Starting step 17
+Previous prompt score:
+0.0
+#########
+
+Get new prompt:
+Use the following scale to evaluate summaries: Assign a '0' to summaries that are completely inaccurate or irrelevant to the original content. Give a '1' to summaries that identify the topic but miss all the key points, containing major inaccuracies. Reserve a '2' for summaries that recognize the main theme but omit multiple important details, showing a lack of depth. Score a '3' for summaries that accurately reflect the central idea and include most of the crucial details, despite a few minor errors or omissions. Award a '4' to summaries that provide an accurate and detailed representation of the original content, capturing both the essence and the subtleties, with only negligible errors. Bestow a '5' to summaries that are both factually precise and succinct, presenting all the essential elements and complexities of the original material in a comprehensive and coherent manner without oversimplification.
+Starting step 18
+Stop criteria reached
+[92mCalibrated prompt score: 0.022222222222222223[0m
+[92mCalibrated prompt: In assessing the quality of summaries, apply scores from '0' to '5' where '0' is the lowest and '5' is the highest. Recognize that even simplified summaries can convey the essence of complex topics and should be scored higher if they accurately encapsulate the central themes without distortion. Conversely, scores of '4' or '5' should be reserved for summaries that include essential details and nuances of the original content and are both precise and concise. Scores of '0' through '3' should reflect varying degrees of deviation from this standard, with the lowest scores indicating summaries that substantially misrepresent the source material either by oversimplifying or omitting crucial details and the higher scores within this range reflecting increasing alignment with the original content's complexity and depth.[0m

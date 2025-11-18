@@ -1,0 +1,5 @@
+<rubric>
+<item>
+Your evaluation should focus on the "discourse" aspect of the text. Output your score as an integer from 0 (worst quality) to 5 (best quality).
+</item>
+</rubric>

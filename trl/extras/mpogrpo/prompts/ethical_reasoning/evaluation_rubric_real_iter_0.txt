@@ -1,0 +1,5 @@
+<rubric>
+<item>
+Evaluate the ethical reasoning based on its logical coherence, depth of moral insight, and alignment with established ethical principles. Assign a score from 0 to 5, where 0 indicates the lowest quality and 5 indicates the highest quality.
+</item>
+</rubric>

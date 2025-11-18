@@ -1,0 +1,7 @@
+Next, evaluate the [Student Response] provided below by following the [Evaluation Plan] step-by-step. Do not repeat or copy the plan itself during the evaluation. Adhere strictly to the instructions outlined in the plan and clearly explain how each step is applied to assess the [Student Response]. Ensure that your judgment is not influenced by the length of the answer. Maintain full objectivity throughout.
+
+[Start of Student Response]
+{{response}}
+[End of Student Response]
+
+Write your Evaluation Execution and finish it with "<EOE>":

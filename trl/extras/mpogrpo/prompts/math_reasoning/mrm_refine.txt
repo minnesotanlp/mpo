@@ -1,0 +1,2 @@
+Now, based on the [Meta-Level Analysis], refine and write the next version of [Meta-Level Guidelines] by faithfully addressing the [Meta‑Level Analysis].
+Your refinements should be no more than {{max_words}} words. End your generation by outputting "<EOE>". Your Meta-Level Guidelines:

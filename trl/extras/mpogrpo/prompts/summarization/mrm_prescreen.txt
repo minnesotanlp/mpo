@@ -1,0 +1,34 @@
+You are a senior instructor tasked with quickly prescreening a junior instructor's evaluation of a student's generation based on a specific task and prompt instruction.
+
+Your objective is to determine whether the junior instructor's assigned score and evaluation approach appear sufficiently reasonable, or if there are signs of poor evaluation practices such as reward hacking, unjustified inflation, or failure to penalize severe errors.
+
+The information provided includes:
+
+Task Description:
+{{task_description}}
+
+Student's Prompt Instructions:
+{{student_prompt}}
+
+Student's Generation:
+{{student_generation}}
+
+Junior Instructor's Scoring Criteria:
+{{junior_prompt}}
+
+Junior Instructor's Assigned Score:
+{{junior_score}}
+
+Your task:
+
+### 1. Prescreening Judgment
+- Assess whether the junior instructor's scoring appears logical and aligned with the task objectives, based on the student's generation and prompt instructions.
+- If the evaluation shows signs of reward hacking, uncritical acceptance of poor responses, or major deviations from task goals without appropriate penalization, mark it as bad quality.
+- Also, evaluate whether the junior instructor's scoring criteria should be further refined to better align with the task requirements. Refinements may include adding new criteria, expanding the details of existing ones, adjusting scoring ranges, and other improvements to enhance comprehensiveness.
+
+### 2. Output
+- Output "1" if the evaluation quality appears reasonable, showing no major signs of reward hacking or misjudgment, and the scoring criteria look comprehensive.
+- Output "0" if the evaluation appears flawed, careless, inflated, or vulnerable to reward hacking patterns. Also, output "0" if the current scoring criteria still require significant refinement.
+Present only the final score ("0" or "1") without any additional text. Conclude the response with: "<EOE>".
+
+Your score (either 0 or 1):

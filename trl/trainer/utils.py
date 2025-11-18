@@ -617,6 +617,12 @@ class MPOPPODataCollatorWithPadding:
         return batch
 
 
+# Dedicated collator alias for MPOGRPO (shares padding behavior with MPOPPO)
+@dataclass
+class MPOGRPODataCollatorWithPadding(MPOPPODataCollatorWithPadding):
+    pass
+
+
 class ConstantLengthDataset(IterableDataset):
     """
     Iterable dataset that returns constant length chunks of tokens from stream of text files.
