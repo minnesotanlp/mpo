@@ -12,7 +12,9 @@ if (( $# < 2 )); then
 fi
 
 rm_address=$1
-mrm_address=$2
+rm_params=$2
+mrm_address=$3
+mrm_params=$4
 
 ###############################################################################
 #  Paths & constants
@@ -39,8 +41,11 @@ run_experiment() {
     # ------------------------------------------------------------------------
     #  GPU layout
     # ------------------------------------------------------------------------
-    local CUDA_DEVICES="0"
-    local ACC_CONFIG="$trl_dir/examples/accelerate_configs/single_gpu.yaml"
+    local CUDA_DEVICES="${CUDA_DEVICES_OVERRIDE:-0}"
+    local ACC_CONFIG="${ACC_CONFIG_OVERRIDE:-$trl_dir/examples/accelerate_configs/single_gpu.yaml}"
+    local machine_rank="${MACHINE_RANK_OVERRIDE:-0}"
+    local num_machines="${NUM_MACHINES_OVERRIDE:-1}"
+    local num_processes="${NUM_PROCESSES_OVERRIDE:-1}"
 
     # ------------------------------------------------------------------------
     #  Naming & bookkeeping
@@ -65,7 +70,7 @@ run_experiment() {
 
     # MPOGRPO interval
     local num_mpo_interval=99999999
-    [[ "$exp_type" == "mpogrpo" ]] && num_mpo_interval=2
+    [[ "$exp_type" == "mpogrpo"  || "$exp_type" == "mpoppo" ]] && num_mpo_interval=2
 
     local _mrm_address=$mrm_address
     [[ $rm == $mrm ]] && _mrm_address=$rm_address
@@ -89,6 +94,9 @@ run_experiment() {
     # --sft_model_path   "meta-llama/Llama-3.1-8B-Instruct" \
     WANDB__SERVICE_WAIT=300 CUDA_VISIBLE_DEVICES="$CUDA_DEVICES" \
     accelerate launch --config_file "$ACC_CONFIG" \
+        --machine_rank "$machine_rank" \
+        --num_machines "$num_machines" \
+        --num_processes "$num_processes" \
         "$SCRIPT" \
         --dataset_name "$DATASET" \
         --task_name "$TASK" \
