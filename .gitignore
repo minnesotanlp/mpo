@@ -147,3 +147,4 @@ wandb/
 
 # model weights
 models/
+!trl/models/
