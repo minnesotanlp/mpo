@@ -153,6 +153,63 @@ class RewardModel:
             raise ValueError(f"No rubric items parsed for {file_path}!")
         return rubric_items
 
+    def compute_maximum_scores(self, rubric_items: list[str]) -> list[float]:
+        """
+        Ask the reward model to extract the highest achievable integer score for each rubric item.
+        """
+        from sglang import assistant, gen, system, user
+
+        @function
+        def _max_score_for_rubric_item(s, rubric_item: str):
+            s += system(
+                "You are a meticulous grading assistant who only extracts scoring ranges from rubric text."
+            )
+            s += user(
+                "You will be given one rubric item that lists scoring criteria for a task.\n"
+                "Read the rubric carefully and determine the maximum integer score that can be awarded for this item.\n"
+                "- Look for explicit score labels such as 'Criterion for Integer Score: **6**', 'Score 5', or ranges like 0 to 5.\n"
+                "- If a range is implied (e.g., labels [0,1,2,3,4,5]), return the highest endpoint.\n"
+                "- Ignore examples, years, counts, or any numbers that are not a score label.\n"
+                "Respond with only the integer value and nothing else.\n\n"
+                "Rubric item:\n"
+                f"{rubric_item}\n\n"
+                "Highest integer score:"
+            )
+            s += assistant(gen("max_score", temperature=0.0, regex=r"\d+"))
+
+        inputs = [{"rubric_item": item} for item in rubric_items]
+        states = _max_score_for_rubric_item.run_batch(inputs, backend=self.backend)
+
+        max_scores: list[float] = []
+        for idx, state in enumerate(states):
+            try:
+                raw_score = state["max_score"]
+            except Exception as e:
+                print(f"Could not retrieve max_score for rubric item #{idx + 1}: {e}")
+                max_scores.append(0.0)
+                continue
+
+            try:
+                score_val = float(raw_score)
+            except Exception:
+                m = re.search(r"\d+(?:\.\d+)?", str(raw_score))
+                if m:
+                    score_val = float(m.group(0))
+                else:
+                    print(f"Could not parse numeric max_score for rubric item #{idx + 1}: {raw_score}")
+                    score_val = 0.0
+            max_scores.append(score_val)
+
+        if len(max_scores) != len(rubric_items):
+            print(
+                "Warning: Number of extracted max scores does not match rubric items; padding/truncating to match length."
+            )
+            max_scores = max_scores[: len(rubric_items)] + [0.0] * (
+                len(rubric_items) - len(max_scores)
+            )
+
+        return max_scores
+
     def parse_task_descriptions_and_prompts_base(
         self, queries: list[str], separation_regex: str
     ) -> tuple[list[str], list[str]]:

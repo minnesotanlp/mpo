@@ -17,6 +17,7 @@ class RewardModelEthicalReasoning(RewardModel):
         )
         prompt_path, _ = self.get_latest_rubric_path_and_iteration_index()
         self.rubric_items = self.read_rubric_items(prompt_path)
+        self.max_scores = self.compute_maximum_scores(self.rubric_items)
 
     def parse_task_descriptions_and_prompts(self, queries: list[str]) -> tuple[list[str], list[str]]:
         separation_regex = (
@@ -62,7 +63,13 @@ class RewardModelEthicalReasoning(RewardModel):
         s.set_var("evaluations", evaluations)
 
     def score(
-        self, queries: list[str], responses: list[str], return_evaluations: bool = True, *args, **kwargs
+        self,
+        queries: list[str],
+        responses: list[str],
+        return_evaluations: bool = True,
+        do_normalize: bool = True,
+        *args,
+        **kwargs,
     ) -> tuple[list[float], list[dict[str, Any]]]:
         """
         Compute the reward score for a list of queries and responses.
@@ -80,17 +87,18 @@ class RewardModelEthicalReasoning(RewardModel):
         all_evaluations = []
         for i, (parsed_anec, r) in enumerate(zip(anecdotes, responses)):
             verdict_part = re.search(rgx_verdict, r, re.MULTILINE | re.DOTALL)
+            penalty_score = 0 if do_normalize else -10
             if verdict_part is None:
-                evals = ["<reason> Reasoning is missing verdict.</reason> <score>-10</score>"]
+                evals = [f"<reason> Reasoning is missing verdict.</reason> <score>{penalty_score}</score>"]
                 all_evaluations.append(evals)
-                all_scores.append(-10)
+                all_scores.append(penalty_score)
                 continue
 
             response_without_verdict = re.sub(rgx_verdict, "", r).strip()
             if len(response_without_verdict.split()) < 30:
-                evals = ["<reason> Reasoning is too short.</reason> <score>-10</score>"]
+                evals = [f"<reason> Reasoning is too short.</reason> <score>{penalty_score}</score>"]
                 all_evaluations.append(evals)
-                all_scores.append(-10)
+                all_scores.append(penalty_score)
                 continue
 
             # otherwise, we need to run the LLM to get the score
@@ -124,6 +132,7 @@ class RewardModelEthicalReasoning(RewardModel):
 
             sub_scores = []
             for eval_index, evaluation in enumerate(evaluations):
+                max_score = self.max_scores[eval_index] if eval_index < len(self.max_scores) else None
                 try:
                     m = re.search(r"<score>(.*?)<\/score>", evaluation, re.MULTILINE | re.DOTALL)
                     if m is not None:
@@ -148,8 +157,16 @@ class RewardModelEthicalReasoning(RewardModel):
                         "<reason> Could not parse score from this evaluation rubric.</reason> <score>0</score>"
                     )
                     score = 0
+                if do_normalize:
+                    if max_score and max_score > 0:
+                        score = min(max(score / max_score, 0), 1)
+                    else:
+                        score = 0
                 sub_scores.append(score)
-            all_scores[all_states_index] = sum(sub_scores)
+            if do_normalize and len(self.max_scores) > 0:
+                all_scores[all_states_index] = sum(sub_scores) / len(self.max_scores)
+            else:
+                all_scores[all_states_index] = sum(sub_scores)
 
         assert len(all_scores) == len(all_evaluations) == len(queries)
         if return_evaluations:

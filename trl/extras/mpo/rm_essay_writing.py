@@ -17,6 +17,7 @@ class RewardModelEssayWriting(RewardModel):
         )
         prompt_path, _ = self.get_latest_rubric_path_and_iteration_index()
         self.rubric_items = self.read_rubric_items(prompt_path)
+        self.max_scores = self.compute_maximum_scores(self.rubric_items)
 
     def parse_task_descriptions_and_prompts(self, queries: list[str]) -> tuple[list[str], list[str]]:
         separation_regex = r"user(.+?)Instructions:(.+?)Your Writing:"
@@ -58,7 +59,13 @@ class RewardModelEssayWriting(RewardModel):
         s.set_var("evaluations", evaluations)
 
     def score(
-        self, queries: list[str], responses: list[str], return_evaluations: bool = True, *args, **kwargs
+        self,
+        queries: list[str],
+        responses: list[str],
+        return_evaluations: bool = True,
+        do_normalize: bool = True,
+        *args,
+        **kwargs,
     ) -> tuple[list[float], list[dict[str, Any]]]:
         """
         Compute the reward score for a list of queries and responses.
@@ -92,7 +99,8 @@ class RewardModelEssayWriting(RewardModel):
                 all_evaluations.append(None)
                 continue
             sub_scores = []
-            for evaluation in evaluations:
+            for eval_index, evaluation in enumerate(evaluations):
+                max_score = self.max_scores[eval_index] if eval_index < len(self.max_scores) else None
                 try:
                     m = re.search(r"<score>(.*?)<\/score>", evaluation, re.MULTILINE | re.DOTALL)
                     if m is not None:
@@ -111,8 +119,16 @@ class RewardModelEssayWriting(RewardModel):
                     print(f"Error processing state index, {i}: {e}")
                     print(f"state['output']: {s['output']}")
                     score = 0
+                if do_normalize:
+                    if max_score and max_score > 0:
+                        score = min(max(score / max_score, 0), 1)
+                    else:
+                        score = 0
                 sub_scores.append(score)
-            scores.append(sum(sub_scores))
+            if do_normalize and len(self.max_scores) > 0:
+                scores.append(sum(sub_scores) / len(self.max_scores))
+            else:
+                scores.append(sum(sub_scores))
             all_evaluations.append(evaluations)
         if return_evaluations:
             return scores, all_evaluations

@@ -17,6 +17,7 @@ class RewardModelSummarization(RewardModel):
         )
         prompt_path, _ = self.get_latest_rubric_path_and_iteration_index()
         self.rubric_items = self.read_rubric_items(prompt_path)
+        self.max_scores = self.compute_maximum_scores(self.rubric_items)
 
     def parse_task_descriptions_and_prompts(self, queries: list[str]) -> tuple[list[str], list[str]]:
         separation_regex = r"You are a helpful assistant\.\nuser(.+?)Bill:\n```(.+?)```"
@@ -60,7 +61,13 @@ class RewardModelSummarization(RewardModel):
         s.set_var("evaluations", evaluations)
 
     def score(
-        self, queries: list[str], responses: list[str], return_evaluations: bool = True, *args, **kwargs
+        self,
+        queries: list[str],
+        responses: list[str],
+        return_evaluations: bool = True,
+        do_normalize: bool = True,
+        *args,
+        **kwargs,
     ) -> tuple[list[float], list[dict[str, Any]]]:
         """
         Compute the reward score for a list of queries and responses.
@@ -92,6 +99,7 @@ class RewardModelSummarization(RewardModel):
 
             sub_scores = []
             for eval_index, evaluation in enumerate(evaluations):
+                max_score = self.max_scores[eval_index] if eval_index < len(self.max_scores) else None
                 try:
                     m = re.search(r"<score>(.*?)<\/score>", evaluation, re.MULTILINE | re.DOTALL)
                     if m is not None:
@@ -116,8 +124,16 @@ class RewardModelSummarization(RewardModel):
                         "<reason> Could not parse score from this evaluation rubric.</reason> <score>0</score>"
                     )
                     score = 0
+                if do_normalize:
+                    if max_score and max_score > 0:
+                        score = min(max(score / max_score, 0), 1)
+                    else:
+                        score = 0
                 sub_scores.append(score)
-            all_scores[i] = sum(sub_scores)
+            if do_normalize and len(self.max_scores) > 0:
+                all_scores[i] = sum(sub_scores) / len(self.max_scores)
+            else:
+                all_scores[i] = sum(sub_scores)
 
         assert len(all_scores) == len(all_evaluations) == len(queries)
         if return_evaluations:
