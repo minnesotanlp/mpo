@@ -20,9 +20,9 @@ from ..trainer.utils import OnPolicyConfig
 
 
 @dataclass
-class MPOConfig(OnPolicyConfig):
+class MPOPPOConfig(OnPolicyConfig):
     r"""
-    Configuration class for the [`MPOTrainer`].
+    Configuration class for the [`MPOPPOTrainer`].
 
     Using [`~transformers.HfArgumentParser`] we can turn this class into
     [argparse](https://docs.python.org/3/library/argparse#module-argparse) arguments that can be specified on the
@@ -50,9 +50,9 @@ class MPOConfig(OnPolicyConfig):
         num_ppo_epochs (`int`, *optional*, defaults to `4`):
             Number of epochs to train.
         num_mpo_interval (`int`, *optional*, defaults to `10`):
-            Number of batch steps to run before updating the RM prompt using MPO steps.
+            Number of batch steps to run before updating the RM prompt using MPOPPO steps.
         num_mpo_samples (`int`, *optional*, defaults to `20`):
-            Number of episodes to consider when conducting MPO steps.
+            Number of episodes to consider when conducting MPOPPO steps.
         save_n_updates (`int`, *optional*, defaults to `20`):
             Number of updates to save a checkpoint.
         whiten_rewards (`bool`, *optional*, defaults to `False`):
@@ -124,11 +124,11 @@ class MPOConfig(OnPolicyConfig):
     )
     num_mpo_interval: int = field(
         default=10,
-        metadata={"help": "Number of batch steps to run before updating the RM prompt using MPO steps."},
+        metadata={"help": "Number of batch steps to run before updating the RM prompt using MPOPPO steps."},
     )
     num_mpo_samples: int = field(
         default=20,
-        metadata={"help": "Number of episodes to consider when conducting MPO steps."},
+        metadata={"help": "Number of episodes to consider when conducting MPOPPO steps."},
     )
     save_n_updates: int = field(
         default=20,

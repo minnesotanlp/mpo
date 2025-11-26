@@ -7,7 +7,7 @@
 #SBATCH --mem=100GB
 #SBATCH --gpus-per-node=8
 #SBATCH --cpus-per-task=32
-#SBATCH -t 72:00:00
+#SBATCH -t 96:00:00
 #SBATCH -o %x.%j.out
 
 set -euo pipefail
@@ -17,20 +17,20 @@ set -euo pipefail
 ##############################
 
 # Your project root
-export MPO_ROOT="/lustre/fs0/scratch/zkim/Development/mpo-old"
+export MPOPPO_ROOT="/lustre/fs0/scratch/zkim/Development/mpo-old"
 
 # Load .env (expects a line like: HF_TOKEN=xxxx)
-if [ -f "${MPO_ROOT}/.env" ]; then
+if [ -f "${MPOPPO_ROOT}/.env" ]; then
   # Export variables defined inside .env
   set -a
   # shellcheck source=/dev/null
-  source "${MPO_ROOT}/.env"
+  source "${MPOPPO_ROOT}/.env"
   set +a
 else
-  echo "[WARN] ${MPO_ROOT}/.env not found; HF_TOKEN may be unset" >&2
+  echo "[WARN] ${MPOPPO_ROOT}/.env not found; HF_TOKEN may be unset" >&2
 fi
 
-: "${HF_TOKEN:?HF_TOKEN must be set in ${MPO_ROOT}/.env}"
+: "${HF_TOKEN:?HF_TOKEN must be set in ${MPOPPO_ROOT}/.env}"
 
 # Container image (your SQSH)
 export SGLANG_IMAGE="/lustre/fs0/scratch/zkim/sqsh-files/lmsysorg+sglang+latest.sqsh"

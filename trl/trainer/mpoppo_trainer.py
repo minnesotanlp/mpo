@@ -49,12 +49,12 @@ from transformers.trainer_callback import CallbackHandler, ExportableState, Prin
 from transformers.utils import is_peft_available
 
 from ..core import masked_mean, masked_whiten
-from ..extras import mpo
+from ..extras import mpoppo
 from ..models import create_reference_model
 from ..models.utils import unwrap_model_for_generation
-from .mpo_config import MPOConfig
+from .mpoppo_config import MPOPPOConfig
 from .utils import (
-    MPODataCollatorWithPadding,
+    MPOPPODataCollatorWithPadding,
     OnlineTrainerState,
     batch_generation,
     disable_dropout_in_model,
@@ -64,7 +64,7 @@ from .utils import (
     generate_model_card,
     get_comet_experiment_url,
     get_reward,
-    get_reward_for_mpo,
+    get_reward_for_mpoppo,
     log_table_to_comet_experiment,
     peft_module_casting_to_bf16,
     prepare_deepspeed,
@@ -95,7 +95,7 @@ INVALID_LOGPROB = 1.0
 
 def get_task_specific_gatherings(task_name: str) -> dict[str, list]:
     """
-    Get the task specific gatherings for the MPO trainer.
+    Get the task specific gatherings for the MPOPPO trainer.
     """
     if task_name == "essay_writing":
         return {}
@@ -133,12 +133,12 @@ class PolicyAndValueWrapper(nn.Module):
         return self.policy(**kwargs), logits
 
 
-class MPOTrainer(Trainer):
-    _tag_names = ["trl", "mpo"]
+class MPOPPOTrainer(Trainer):
+    _tag_names = ["trl", "mpoppo"]
 
     def __init__(
         self,
-        args: MPOConfig,
+        args: MPOPPOConfig,
         processing_class: Optional[
             Union[PreTrainedTokenizerBase, BaseImageProcessor, FeatureExtractionMixin, ProcessorMixin]
         ],
@@ -148,7 +148,7 @@ class MPOTrainer(Trainer):
         meta_reward_model_address: str,
         train_dataset: Dataset,
         value_model: Optional[nn.Module] = None,
-        data_collator: Optional[MPODataCollatorWithPadding] = None,
+        data_collator: Optional[MPOPPODataCollatorWithPadding] = None,
         eval_dataset: Optional[Union[Dataset, dict[str, Dataset]]] = None,
         # less commonly used
         optimizers: tuple[torch.optim.Optimizer, torch.optim.lr_scheduler.LambdaLR] = (None, None),
@@ -178,7 +178,7 @@ class MPOTrainer(Trainer):
         os.makedirs(self.prompts_directory, exist_ok=True)
         os.makedirs(self.evaluations_directory, exist_ok=True)
         os.makedirs(self.checkpoints_directory, exist_ok=True)
-        source_prompts_directory = os.path.join(os.path.dirname(mpo.__file__), "prompts", self.args.task_name)
+        source_prompts_directory = os.path.join(os.path.dirname(mpoppo.__file__), "prompts", self.args.task_name)
         shutil.copytree(source_prompts_directory, self.prompts_directory, dirs_exist_ok=True)
 
         # TODO: handle math specific code more gracefully
@@ -204,7 +204,7 @@ class MPOTrainer(Trainer):
 
         # Define the collator if not provided
         if data_collator is None:
-            data_collator = MPODataCollatorWithPadding(self.processing_class)
+            data_collator = MPOPPODataCollatorWithPadding(self.processing_class)
 
         # Handle stop token settings: update policy model's generation_config to use provided stop token
         if args.stop_token and args.stop_token_id:
@@ -267,9 +267,9 @@ class MPOTrainer(Trainer):
         }
         if self.args.task_name == "math_reasoning":
             self.mrm_kwargs["cluster_size"] = self.cluster_size
-        self.reward_model = mpo.get_reward_model(**self.rm_kwargs)
+        self.reward_model = mpoppo.get_reward_model(**self.rm_kwargs)
         time.sleep(3)
-        self.meta_reward_model = mpo.get_meta_reward_model(**self.mrm_kwargs)
+        self.meta_reward_model = mpoppo.get_meta_reward_model(**self.mrm_kwargs)
         self.train_dataset = train_dataset
         self.train_dataset_len = len(train_dataset)
         self.value_model = value_model
@@ -314,7 +314,7 @@ class MPOTrainer(Trainer):
         # setup model, optimizer, and others
         #########
         for module in [self.policy_model, self.ref_model, self.value_model, self.reward_model]:
-            if isinstance(module, mpo.RewardModel):
+            if isinstance(module, mpoppo.RewardModel):
                 continue
             if module is not None:
                 disable_dropout_in_model(module)
@@ -601,8 +601,8 @@ class MPOTrainer(Trainer):
                             for k, v in curr_task_gatherings.items()
                         }
 
-                        if isinstance(self.reward_model, mpo.RewardModel):
-                            score, evaluation = get_reward_for_mpo(
+                        if isinstance(self.reward_model, mpoppo.RewardModel):
+                            score, evaluation = get_reward_for_mpoppo(
                                 self.reward_model,
                                 detokenized_query,
                                 detokenized_response,
@@ -838,7 +838,7 @@ class MPOTrainer(Trainer):
             )
             torch.cuda.empty_cache()
 
-            # Call MPO routine
+            # Call MPOPPO routine
             if update > 0 and update % args.num_mpo_interval == 0:
                 current_device = self.accelerator.device
 
@@ -870,7 +870,7 @@ class MPOTrainer(Trainer):
 
                 self.accelerator.wait_for_everyone()
 
-                self.reward_model = mpo.get_reward_model(**self.rm_kwargs)
+                self.reward_model = mpoppo.get_reward_model(**self.rm_kwargs)
 
                 self.accelerator.wait_for_everyone()
 
@@ -940,8 +940,8 @@ class MPOTrainer(Trainer):
                     detokenized_response = processing_class.batch_decode(
                         postprocessed_response, skip_special_tokens=True
                     )
-                    if isinstance(self.reward_model, mpo.RewardModel):
-                        score, evaluation = get_reward_for_mpo(
+                    if isinstance(self.reward_model, mpoppo.RewardModel):
+                        score, evaluation = get_reward_for_mpoppo(
                             self.reward_model,
                             detokenized_query,
                             detokenized_response,
@@ -1027,7 +1027,7 @@ class MPOTrainer(Trainer):
             tags=tags,
             wandb_url=wandb.run.get_url() if is_wandb_available() and wandb.run is not None else None,
             comet_url=get_comet_experiment_url(),
-            trainer_name="MPO",
+            trainer_name="MPOPPO",
             trainer_citation=citation,
             paper_title="Fine-Tuning Language Models from Human Preferences",
             paper_id="1909.08593",

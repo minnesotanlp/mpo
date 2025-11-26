@@ -3,7 +3,7 @@ from typing import Any
 import regex as re
 from sglang import assistant, function, gen, system, user
 
-from trl.extras.mpo import MetaRewardModel, RewardModel
+from trl.extras.mpoppo import MetaRewardModel, RewardModel
 
 
 class RewardModelSummarization(RewardModel):

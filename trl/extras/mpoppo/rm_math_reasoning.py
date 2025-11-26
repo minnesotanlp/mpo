@@ -11,7 +11,7 @@ import regex as re
 from natsort import natsorted
 from sglang import assistant, function, gen, system, user
 
-from trl.extras.mpo import MetaRewardModel, RewardModel
+from trl.extras.mpoppo import MetaRewardModel, RewardModel
 
 
 math_domains_to_idx = {

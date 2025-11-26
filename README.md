@@ -3,18 +3,18 @@
 
 ## What’s Been Implemented?
 
-- **Main script** for launching MPO training on top of PPO: `examples/scripts/mpo.py`
-- **`MPOTrainer`**: Located in `trl/trainer/mpo_trainer.py`, this extends `PPOTrainer` to implement the full MPO procedure as described in the paper.
-- **`MPOConfig`**: Defined in `trl/trainer/mpo_config.py`, this contains all hyperparameters for MPO training.
-- **Processed corpora** for four tasks (essay writing, summarization, ethical reasoning, and mathematical reasoning) are provided in `trl/extras/mpo/corpora`.
-- **Initial prompts and meta-prompts** for each task are located in `trl/extras/mpo/prompts`.
-- **LLM-based reward models (RMs)** and **meta-reward models (MRMs)** are implemented in task-specific files under `trl/extras/mpo/rm_{task_name}.py`, and dataset loading/processing is handled in `trl/extras/mpo/mpo_datasets.py`.
-- **Utility functions** for MPO training are implemented in `trl/trainer/utils.py`.
+- **Main script** for launching MPOPPO training on top of PPO: `examples/scripts/mpoppo.py`
+- **`MPOPPOTrainer`**: Located in `trl/trainer/mpoppo_trainer.py`, this extends `PPOTrainer` to implement the full MPO procedure as described in the paper.
+- **`MPOPPOConfig`**: Defined in `trl/trainer/mpoppo_config.py`, this contains all hyperparameters for MPOPPO training.
+- **Processed corpora** for four tasks (essay writing, summarization, ethical reasoning, and mathematical reasoning) are provided in `trl/extras/mpoppo/corpora`.
+- **Initial prompts and meta-prompts** for each task are located in `trl/extras/mpoppo/prompts`.
+- **LLM-based reward models (RMs)** and **meta-reward models (MRMs)** are implemented in task-specific files under `trl/extras/mpoppo/rm_{task_name}.py`, and dataset loading/processing is handled in `trl/extras/mpoppo/mpoppo_datasets.py`.
+- **Utility functions** for MPOPPO training are implemented in `trl/trainer/utils.py`.
 - **Additional scripts** for launching remote LLM servers and evaluating trained models are provided in `scripts/mpo_experiments`.
 
 ## Installation & Execution Requirements
 
-- Running MPO requires two components:
+- Running MPOPPO requires two components:
   1. **A primary node or subset of GPUs** dedicated to RL training.
   2. **A separate node or the remaining GPUs** dedicated to serving reward scores in an online fashion.
 - For the former, install this repository using `virtualenv` and `uv` (recommended for clean and reproducible environments):
@@ -36,8 +36,8 @@
     $ uv pip install vllm==0.8.4
     ```
   - Refer to the [SGLang documentation](https://docs.sglang.ai/) for more details.
-- Training start and end notifications are currently sent via [Pushover](https://pushover.net/api). If you do not wish to use this feature, you can simply comment out the relevant lines in the launch script: `examples/scripts/mpo.py`.
-- The `launch_mpo.sh` script in `scripts/mpo_experiments` demonstrates how to train models using MPO with different parameter configurations.
+- Training start and end notifications are currently sent via [Pushover](https://pushover.net/api). If you do not wish to use this feature, you can simply comment out the relevant lines in the launch script: `examples/scripts/mpoppo.py`.
+- The `launch_mpoppo.sh` script in `scripts/mpo_experiments` demonstrates how to train models using MPOPPO with different parameter configurations.
 - The `launch_rm_mrm.sh` script in `scripts/mpo_experiments` shows how to instantiate and serve LLMs via SGLang over an SSH connection.
 
 Below is the README from trl repository.

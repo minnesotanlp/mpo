@@ -11,7 +11,7 @@ import regex as re
 from natsort import natsorted
 from sglang import RuntimeEndpoint, function
 
-from .mpo_datasets import (
+from .mpoppo_datasets import (
     prepare_essay_writing_dataset,
     prepare_ethical_reasoning_dataset,
     prepare_mathematical_reasoning_dataset,
@@ -24,19 +24,17 @@ def get_task_dataset(task_name: str, tokenizer, split: str):
     Load the task dataset based on the task name.
     """
     assert split in ["train", "test"], f"Split '{split}' is not supported. Please choose from ['train', 'test']"
-    from trl.extras import mpo
-
     if task_name == "essay_writing":
         dataset = prepare_essay_writing_dataset(tokenizer, split, train_size=10000)
     elif task_name == "summarization":
         dataset = prepare_summarization_dataset(tokenizer, split, train_size=10000)
     elif task_name == "math_reasoning":
         corpus_filename = "MATH_train_clustered.json" if split == "train" else "MATH_test_clustered.json"
-        data_file_path = os.path.join(os.path.dirname(mpo.__file__), "corpora", "MATH", corpus_filename)
+        data_file_path = os.path.join(os.path.dirname(__file__), "corpora", "MATH", corpus_filename)
         dataset = prepare_mathematical_reasoning_dataset(tokenizer, split, data_file_path=data_file_path)
     elif task_name == "ethical_reasoning":
         corpus_filename = "train.scruples-anecdotes.jsonl" if split == "train" else "dev-test.scruples-anecdotes.jsonl"
-        data_file_path = os.path.join(os.path.dirname(mpo.__file__), "corpora", "anecdotes", corpus_filename)
+        data_file_path = os.path.join(os.path.dirname(__file__), "corpora", "anecdotes", corpus_filename)
         dataset = prepare_ethical_reasoning_dataset(tokenizer, split, data_file_path=data_file_path, train_size=10000)
     else:
         raise ValueError(
@@ -49,10 +47,10 @@ def get_reward_model(task_name: str, reward_model_address: str, experiment_direc
     """
     Load the reward model based on the task name.
     """
-    from trl.extras.mpo.rm_essay_writing import RewardModelEssayWriting
-    from trl.extras.mpo.rm_ethical_reasoning import RewardModelEthicalReasoning
-    from trl.extras.mpo.rm_math_reasoning import RewardModelMathReasoning
-    from trl.extras.mpo.rm_summarization import RewardModelSummarization
+    from trl.extras.mpoppo.rm_essay_writing import RewardModelEssayWriting
+    from trl.extras.mpoppo.rm_ethical_reasoning import RewardModelEthicalReasoning
+    from trl.extras.mpoppo.rm_math_reasoning import RewardModelMathReasoning
+    from trl.extras.mpoppo.rm_summarization import RewardModelSummarization
 
     if task_name == "essay_writing":
         reward_model = RewardModelEssayWriting(
@@ -87,10 +85,10 @@ def get_meta_reward_model(task_name: str, reward_model_address: str, experiment_
     """
     Load the meta reward model based on the task name.
     """
-    from trl.extras.mpo.rm_essay_writing import MetaRewardModelEssayWriting
-    from trl.extras.mpo.rm_ethical_reasoning import MetaRewardModelEthicalReasoning
-    from trl.extras.mpo.rm_math_reasoning import MetaRewardModelMathReasoning
-    from trl.extras.mpo.rm_summarization import MetaRewardModelSummarization
+    from trl.extras.mpoppo.rm_essay_writing import MetaRewardModelEssayWriting
+    from trl.extras.mpoppo.rm_ethical_reasoning import MetaRewardModelEthicalReasoning
+    from trl.extras.mpoppo.rm_math_reasoning import MetaRewardModelMathReasoning
+    from trl.extras.mpoppo.rm_summarization import MetaRewardModelSummarization
 
     if task_name == "essay_writing":
         meta_reward_model = MetaRewardModelEssayWriting(

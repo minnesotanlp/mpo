@@ -21,20 +21,20 @@ remote_host=$4   # default unchanged
 ###############################################################################
 #  Paths & constants
 ###############################################################################
-trl_dir="$HOME/Development/trl"
-SCRIPT="$trl_dir/examples/scripts/mpo.py"
+trl_dir="${MPOPPO_ROOT:-$HOME/Development/trl}"
+SCRIPT="$trl_dir/examples/scripts/mpoppo.py"
 
 WANDB_ENTITY="iterater"
-WANDB_PROJECT="mpo-new"
+WANDB_PROJECT="mpoppo-new"
 DATASET="math_reasoning"
 TASK="math_reasoning"
-PROMPT_DIR="$trl_dir/trl/extras/mpo/prompts/math_reasoning"
+PROMPT_DIR="$trl_dir/trl/extras/mpoppo/prompts/math_reasoning"
 
 ###############################################################################
 #  Main runner
 ###############################################################################
 run_experiment() {
-    local exp_type=$1         # mpo / ppo …
+    local exp_type=$1         # mpoppo / ppo …
     local rubric_type=$2      # e.g. iter0
     local rm=$3               # reward-model size          (e.g. 1.5b)
     local mrm=$4              # meta-reward-model size     (e.g. 3b)
@@ -51,7 +51,7 @@ run_experiment() {
     # ------------------------------------------------------------------------
     local policy_model="policy-1.5b"
     local model_name
-    if [[ "$exp_type" == "mpo" ]]; then
+    if [[ "$exp_type" == "mpoppo" ]]; then
         model_name="${rubric_type}-${rm}_${mrm}"
     else
         model_name="${rubric_type}-${rm}"
@@ -67,9 +67,9 @@ run_experiment() {
     # gradient accumulation scaling
     local grad_acc_steps=8
 
-    # MPO interval
+    # MPOPPO interval
     local num_mpo_interval=99999999
-    [[ "$exp_type" == "mpo" ]] && num_mpo_interval=20
+    [[ "$exp_type" == "mpoppo" ]] && num_mpo_interval=20
 
     local _mrm_address=$mrm_address
     [[ $rm == $mrm ]] && _mrm_address=$rm_address
@@ -132,7 +132,7 @@ run_experiment() {
 ###############################################################################
 #  Sweep
 ###############################################################################
-exp_type="mpo"
+exp_type="mpoppo"
 rubric_type="iter0"
 prompt="evaluation_rubric_real_iter_0.txt"
 # rubric_type="autoprompt"

@@ -13,8 +13,8 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig, HfArgumentParser, TrainingArguments
 
-from trl.extras.mpo import get_task_dataset
-from trl.trainer.utils import SIMPLE_CHAT_TEMPLATE, MPODataCollatorWithPadding, generate
+from trl.extras.mpoppo import get_task_dataset
+from trl.trainer.utils import SIMPLE_CHAT_TEMPLATE, MPOPPODataCollatorWithPadding, generate
 
 
 """Example
@@ -153,7 +153,7 @@ if __name__ == "__main__":
     dataloader = DataLoader(
         dataset,
         batch_size=args.batch_size,
-        collate_fn=MPODataCollatorWithPadding(tokenizer),
+        collate_fn=MPOPPODataCollatorWithPadding(tokenizer),
         drop_last=False,
     )
 

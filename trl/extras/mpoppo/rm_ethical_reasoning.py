@@ -3,10 +3,10 @@ from typing import Any
 import regex as re
 from sglang import assistant, function, gen, system, user
 
-from trl.extras.mpo import MetaRewardModel, RewardModel
+from trl.extras.mpoppo import MetaRewardModel, RewardModel
 
 
-class RewardModelEssayWriting(RewardModel):
+class RewardModelEthicalReasoning(RewardModel):
     """
     Reward model for essay writing task.
     """
@@ -20,22 +20,26 @@ class RewardModelEssayWriting(RewardModel):
         self.max_scores = self.compute_maximum_scores(self.rubric_items)
 
     def parse_task_descriptions_and_prompts(self, queries: list[str]) -> tuple[list[str], list[str]]:
-        separation_regex = r"user(.+?)Instructions:(.+?)Your Writing:"
+        separation_regex = (
+            r"You are a helpful assistant.\nuser(.+?)### Anecdote\n(.+?)### Ethical Reasoning and Verdict"
+        )
         return self.parse_task_descriptions_and_prompts_base(queries, separation_regex)
 
     @function
-    def rm_score(s, task_description: str, writing_prompt: str, response: str, rubric_items: list[str]):
-        s += system("You will act as an English instructor.")
+    def rm_score(s, anec: str, response: str, rubric_items: list[str]):
+        s += system("You are an insightful moral philosopher.")
         s += user(
-            "Given the writing task and specific writing prompt given below, you will assess the quality of a student's essay or story by sequentially assigning a score to each rubric item. "
-            + 'For each item, you need to first write a single-sentence rationale followed by a single integer score. Finish your generation with: "<EOE>".\n'
-            + "\n\nTask Instruction:\n“"
-            + task_description
-            + "”\n\nWriting Prompt:\n“"
-            + writing_prompt
-            + "”\n\nStudent's Generation:\n“"
-            + response
-            + "”\n\n"
+            "You are tasked with assessing the quality of a moral reasoning and its corresponding verdict that evaluate the ethical nature of an action described in the anecdote below.\n"
+            + "Evaluate the response by scoring each rubric item individually.\n\n"
+            + "For each rubric item:\n"
+            + "- Write a single-sentence rationale explaining your score. This sentence should be enclosed in <reason> and </reason> tags.\n"
+            + "- Follow this with an integer score, enclosed in <score> and </score> tags.\n"
+            + "- End each item with the marker: <EOE>\n\n"
+            + "### Format Example:\n"
+            "<reason>[Your rationale for assigned score]</reason> <score>[integer score]</score><EOE>\n\n"
+            + f"### Anecdote:\n{anec}\n\n"
+            + f"### Moral Reasoning and Verdict:\n{response}\n\n"
+            + "Important: Output only the rationale, the score (within tags), and the <EOE> marker for each rubric item. No additional commentary or formatting outside the specified structure."
         )
         for i, item in enumerate(rubric_items):
             s += user(
@@ -72,32 +76,60 @@ class RewardModelEssayWriting(RewardModel):
         """
         assert len(queries) == len(responses)
         # queries contain the task description and writing prompt, need to separate them
-        task_descriptions, writing_prompts = self.parse_task_descriptions_and_prompts(queries)
-        assert len(task_descriptions) == len(writing_prompts) == len(queries)
+        task_descriptions, anecdotes = self.parse_task_descriptions_and_prompts(queries)
+        assert len(task_descriptions) == len(anecdotes) == len(queries)
+        rgx_verdict = r"(<verdict>(RIGHT|WRONG)</verdict>)"
+        rgx_anec = r"### Anecdote(.+)### Ethical Analysis and Verdict"
 
-        states = []
-        inputs = [
-            {
-                "task_description": t,
-                "writing_prompt": w_p,
-                "response": r,
-                "rubric_items": self.rubric_items,
-            }
-            for t, w_p, r in zip(task_descriptions, writing_prompts, responses)
-        ]
-        states = self.rm_score.run_batch(inputs, backend=self.backend)
-        scores = []
+        indices_for_llm = []
+        inputs_for_llm = []
+        all_scores = []
         all_evaluations = []
-        for i, s in enumerate(states):
-            # s contains results for each query and response pair
+        for i, (parsed_anec, r) in enumerate(zip(anecdotes, responses)):
+            verdict_part = re.search(rgx_verdict, r, re.MULTILINE | re.DOTALL)
+            penalty_score = 0 if do_normalize else -10
+            if verdict_part is None:
+                evals = [f"<reason> Reasoning is missing verdict.</reason> <score>{penalty_score}</score>"]
+                all_evaluations.append(evals)
+                all_scores.append(penalty_score)
+                continue
+
+            response_without_verdict = re.sub(rgx_verdict, "", r).strip()
+            if len(response_without_verdict.split()) < 30:
+                evals = [f"<reason> Reasoning is too short.</reason> <score>{penalty_score}</score>"]
+                all_evaluations.append(evals)
+                all_scores.append(penalty_score)
+                continue
+
+            # otherwise, we need to run the LLM to get the score
+            indices_for_llm.append(i)
+            try:
+                anec = re.search(rgx_anec, parsed_anec, re.MULTILINE | re.DOTALL).group(1)
+            except:
+                anec = parsed_anec
+            inputs_for_llm.append({"anec": anec, "response": r, "rubric_items": self.rubric_items})
+            all_evaluations.append("dummy state")
+            all_scores.append("dummy score")
+        assert len(queries) == len(all_evaluations) == len(all_scores)
+        assert len(inputs_for_llm) == len(indices_for_llm)
+
+        states_from_llm = self.rm_score.run_batch(inputs_for_llm, backend=self.backend)
+        assert len(states_from_llm) == len(inputs_for_llm) == len(indices_for_llm)
+        for all_states_index, s in zip(indices_for_llm, states_from_llm):
+            assert all_evaluations[all_states_index] == "dummy state"
+            assert all_scores[all_states_index] == "dummy score"
             try:
                 evaluations = s["evaluations"]
+                all_evaluations[all_states_index] = evaluations
             except Exception as e:
                 print(f"Could not retrieve s['evaluations'] for state index, {i}: {e}")
-                scores.append(0)
-                s.set_var("evaluations", None)
-                all_evaluations.append(None)
+                evals = [
+                    "<reason> Could not retrieve evaluations from junior instructor for this sample.</reason> <score>0</score>"
+                ]
+                all_evaluations[all_states_index] = evals
+                all_scores[all_states_index] = 0
                 continue
+
             sub_scores = []
             for eval_index, evaluation in enumerate(evaluations):
                 max_score = self.max_scores[eval_index] if eval_index < len(self.max_scores) else None
@@ -113,11 +145,17 @@ class RewardModelEssayWriting(RewardModel):
                             except:
                                 score = 0
                     else:
-                        print(f"Could not parse <score> </score> from: {evaluation}")
+                        print(f"Could not parse <score> from: {evaluation}")
+                        all_evaluations[all_states_index][eval_index] = (
+                            "<reason> Could not parse score from this evaluation rubric.</reason> <score>0</score>"
+                        )
                         score = 0
                 except Exception as e:
                     print(f"Error processing state index, {i}: {e}")
                     print(f"state['output']: {s['output']}")
+                    all_evaluations[all_states_index][eval_index] = (
+                        "<reason> Could not parse score from this evaluation rubric.</reason> <score>0</score>"
+                    )
                     score = 0
                 if do_normalize:
                     if max_score and max_score > 0:
@@ -126,16 +164,17 @@ class RewardModelEssayWriting(RewardModel):
                         score = 0
                 sub_scores.append(score)
             if do_normalize and len(self.max_scores) > 0:
-                scores.append(sum(sub_scores) / len(self.max_scores))
+                all_scores[all_states_index] = sum(sub_scores) / len(self.max_scores)
             else:
-                scores.append(sum(sub_scores))
-            all_evaluations.append(evaluations)
+                all_scores[all_states_index] = sum(sub_scores)
+
+        assert len(all_scores) == len(all_evaluations) == len(queries)
         if return_evaluations:
-            return scores, all_evaluations
-        return scores
+            return all_scores, all_evaluations
+        return all_scores
 
 
-class MetaRewardModelEssayWriting(MetaRewardModel, RewardModelEssayWriting):
+class MetaRewardModelEthicalReasoning(MetaRewardModel, RewardModelEthicalReasoning):
     """
     Meta reward model for essay writing task.
     """
@@ -149,13 +188,13 @@ class MetaRewardModelEssayWriting(MetaRewardModel, RewardModelEssayWriting):
 
     @function
     def mrm_prescreen(s, prescreen_prompt: str):
-        s += system("You are a helpful English teacher.")
+        s += system("You are an insightful moral philosopher.")
         s += user(prescreen_prompt)
         s += assistant(gen("verdict", choices=["good", "ok", "bad"]))
 
     @function
     def mrm_analyze_and_refine(s, analyze_prompt: str, refine_prompt: str):
-        s += system("You are a helpful English teacher.")
+        s += system("You are an insightful moral philosopher.")
         s += user(analyze_prompt)
         s += assistant(gen("analysis", temperature=0.02, max_tokens=2000, stop=["<EOE>", "</EOE>"]))
         s += user(refine_prompt)
@@ -180,7 +219,7 @@ class MetaRewardModelEssayWriting(MetaRewardModel, RewardModelEssayWriting):
 
     @function
     def mrm_merge(s, merge_prompt: str, temperature: float = 0.02):
-        s += system("You are a helpful English teacher.")
+        s += system("You are an insightful moral philosopher.")
         s += user(merge_prompt)
         s += user(
             "First, determine how many non-overlapping and distinct scoring criteria are required to comprehensively represent the given sets. Output the total number of unique criteria needed:"

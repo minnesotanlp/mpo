@@ -25,21 +25,21 @@ prompt="evaluation_rubric_real_iter_0.txt"
 #  Paths & constants
 ###############################################################################
 
-# Use MPO_ROOT if set; fallback to your explicit path
-trl_dir="${MPO_ROOT:-/lustre/fs0/scratch/zkim/Development/mpo}"
-SCRIPT="$trl_dir/examples/scripts/mpo.py"
+# Use MPOPPO_ROOT if set; fallback to your explicit path
+trl_dir="${MPOPPO_ROOT:-/lustre/fs0/scratch/zkim/Development/mpo-old}"
+SCRIPT="$trl_dir/examples/scripts/mpoppo.py"
 
 WANDB_ENTITY="iterater"
 WANDB_PROJECT="mpoppo-new"
 DATASET="essay_writing"
 TASK="essay_writing"
-PROMPT_DIR="$trl_dir/trl/extras/mpo/prompts/essay_writing"
+PROMPT_DIR="$trl_dir/trl/extras/mpoppo/prompts/essay_writing"
 
 ###############################################################################
 #  Main runner
 ###############################################################################
 run_experiment() {
-    local exp_type=$1         # mpogrpo / ppo …
+    local exp_type=$1         # mpoppo / mpogrpo / ppo …
     local rubric_type=$2      # e.g. iter0
     local rm_params=$3        # reward-model size
     local mrm_params=$4       # meta-reward-model size
@@ -70,7 +70,7 @@ run_experiment() {
     # gradient accumulation scaling
     local grad_acc_steps=16
 
-    # MPOGRPO interval
+    # MPOPPO/MPOGRPO interval
     local num_mpo_interval=99999999
     [[ "$exp_type" == "mpogrpo"  || "$exp_type" == "mpoppo" ]] && num_mpo_interval=2
 
@@ -106,7 +106,7 @@ run_experiment() {
         --learning_rate 3e-6 \
         --num_ppo_epochs 4 \
         --num_mpo_interval "$num_mpo_interval" \
-        --save_n_updates 20 \
+        --save_n_updates 2 \
         --num_mpo_samples 10 \
         --num_mini_batches 1 \
         --per_device_train_batch_size 2 \

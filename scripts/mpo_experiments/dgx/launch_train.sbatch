@@ -24,23 +24,23 @@ mrm_address=$2
 ###############################################################################
 
 # Point to this repo (overrides the default in mpoppo_train.sh)
-export MPO_ROOT="/lustre/fs0/scratch/zkim/Development/mpo-old"
+export MPOPPO_ROOT="/lustre/fs0/scratch/zkim/Development/mpo-old"
 
 # Load secrets (e.g., HF_TOKEN) if present
-if [ -f "${MPO_ROOT}/.env" ]; then
+if [ -f "${MPOPPO_ROOT}/.env" ]; then
   set -a
   # shellcheck source=/dev/null
-  source "${MPO_ROOT}/.env"
+  source "${MPOPPO_ROOT}/.env"
   set +a
 fi
 
-: "${HF_TOKEN:?HF_TOKEN must be set (place it in ${MPO_ROOT}/.env)}"
+: "${HF_TOKEN:?HF_TOKEN must be set (place it in ${MPOPPO_ROOT}/.env)}"
 
-cd "${MPO_ROOT}"
+cd "${MPOPPO_ROOT}"
 
 # Force single-node, 8 GPU layout
 export CUDA_DEVICES_OVERRIDE="${CUDA_DEVICES_OVERRIDE:-0,1,2,3,4,5,6,7}"
-export ACC_CONFIG_OVERRIDE="${ACC_CONFIG_OVERRIDE:-${MPO_ROOT}/examples/accelerate_configs/deepspeed_zero2.yaml}"
+export ACC_CONFIG_OVERRIDE="${ACC_CONFIG_OVERRIDE:-${MPOPPO_ROOT}/examples/accelerate_configs/deepspeed_zero2.yaml}"
 
 echo "Job ID:       ${SLURM_JOB_ID}"
 echo "Node list:    ${SLURM_NODELIST}"

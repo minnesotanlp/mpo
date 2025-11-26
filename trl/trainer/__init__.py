@@ -52,8 +52,8 @@ _import_structure = {
     "kto_config": ["KTOConfig"],
     "kto_trainer": ["KTOTrainer"],
     "model_config": ["ModelConfig"],
-    "mpo_config": ["MPOConfig"],
-    "mpo_trainer": ["MPOTrainer"],
+    "mpoppo_config": ["MPOPPOConfig"],
+    "mpoppo_trainer": ["MPOPPOTrainer"],
     "nash_md_config": ["NashMDConfig"],
     "nash_md_trainer": ["NashMDTrainer"],
     "online_dpo_config": ["OnlineDPOConfig"],
@@ -125,8 +125,8 @@ if TYPE_CHECKING:
     from .kto_config import KTOConfig
     from .kto_trainer import KTOTrainer
     from .model_config import ModelConfig
-    from .mpo_config import MPOConfig
-    from .mpo_trainer import MPOTrainer
+    from .mpoppo_config import MPOPPOConfig
+    from .mpoppo_trainer import MPOPPOTrainer
     from .nash_md_config import NashMDConfig
     from .nash_md_trainer import NashMDTrainer
     from .online_dpo_config import OnlineDPOConfig
