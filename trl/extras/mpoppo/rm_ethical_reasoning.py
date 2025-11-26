@@ -113,7 +113,7 @@ class RewardModelEthicalReasoning(RewardModel):
         assert len(queries) == len(all_evaluations) == len(all_scores)
         assert len(inputs_for_llm) == len(indices_for_llm)
 
-        states_from_llm = self.rm_score.run_batch(inputs_for_llm, backend=self.backend)
+        states_from_llm = self._run_batch(self.rm_score, inputs_for_llm)
         assert len(states_from_llm) == len(inputs_for_llm) == len(indices_for_llm)
         for all_states_index, s in zip(indices_for_llm, states_from_llm):
             assert all_evaluations[all_states_index] == "dummy state"

@@ -85,7 +85,7 @@ class RewardModelEssayWriting(RewardModel):
             }
             for t, w_p, r in zip(task_descriptions, writing_prompts, responses)
         ]
-        states = self.rm_score.run_batch(inputs, backend=self.backend)
+        states = self._run_batch(self.rm_score, inputs)
         scores = []
         all_evaluations = []
         for i, s in enumerate(states):

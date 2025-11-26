@@ -74,8 +74,6 @@ run_experiment() {
     local num_mpo_interval=99999999
     [[ "$exp_type" == "mpogrpo"  || "$exp_type" == "mpoppo" ]] && num_mpo_interval=2
 
-    local _mrm_address=$mrm_address
-
     # ------------------------------------------------------------------------
     #  Display run-time configuration
     # ------------------------------------------------------------------------
@@ -86,7 +84,7 @@ run_experiment() {
     printf "grad_acc_steps     : %s\n" "$grad_acc_steps"
     printf "num_mpo_interval   : %s\n" "$num_mpo_interval"
     printf "rm_address         : %s\n" "$rm_address"
-    printf "mrm_address        : %s\n" "$_mrm_address"
+    printf "mrm_address        : %s\n" "$mrm_address"
     printf -- "==============================================\n\n"
 
     # ------------------------------------------------------------------------
@@ -120,8 +118,8 @@ run_experiment() {
         --missing_eos_penalty 1.0 \
         --kl_coef 0.0 \
         --stop_token "eos" \
-        --reward_model_address "$rm_address"  \
-        --meta_reward_model_address "$_mrm_address"
+        --reward_model_address "$rm_address,$mrm_address"  \
+        --meta_reward_model_address "$rm_address,$mrm_address"
 }
 
 run_experiment "$exp_type" "$rubric_type" "$rm_params" "$mrm_params" "$prompt"

@@ -79,7 +79,7 @@ class RewardModelSummarization(RewardModel):
         inputs = [
             {"bill": bill, "response": r, "rubric_items": self.rubric_items} for bill, r in zip(bills, responses)
         ]
-        states = self.rm_score.run_batch(inputs, backend=self.backend)
+        states = self._run_batch(self.rm_score, inputs)
         assert len(states) == len(inputs)
 
         all_evaluations = len(states) * [None]

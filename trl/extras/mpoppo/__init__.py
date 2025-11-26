@@ -2,9 +2,10 @@ import json
 import os
 import random
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from glob import glob
 from time import time
-from typing import Any
+from typing import Any, Iterable, List
 
 import jinja2
 import regex as re
@@ -43,7 +44,7 @@ def get_task_dataset(task_name: str, tokenizer, split: str):
     return dataset
 
 
-def get_reward_model(task_name: str, reward_model_address: str, experiment_directory: str, **kwargs):
+def get_reward_model(task_name: str, reward_model_address: str | list[str], experiment_directory: str, **kwargs):
     """
     Load the reward model based on the task name.
     """
@@ -81,7 +82,7 @@ def get_reward_model(task_name: str, reward_model_address: str, experiment_direc
     return reward_model
 
 
-def get_meta_reward_model(task_name: str, reward_model_address: str, experiment_directory: str, **kwargs):
+def get_meta_reward_model(task_name: str, reward_model_address: str | list[str], experiment_directory: str, **kwargs):
     """
     Load the meta reward model based on the task name.
     """
@@ -124,11 +125,66 @@ class RewardModel:
     Base class for reward models.
     """
 
-    def __init__(self, reward_model_address: str, experiment_directory: str, **kwargs):
+    def __init__(self, reward_model_address: str | list[str], experiment_directory: str, **kwargs):
         self.reward_model_address = reward_model_address
         self.experiment_directory = experiment_directory
         self.prompts_directory = os.path.join(self.experiment_directory, "prompts")
-        self.backend = RuntimeEndpoint(self.reward_model_address)
+        self.backends = self._build_backends(reward_model_address)
+        self.backend = self.backends[0]
+
+    def _parse_addresses(self, addrs: str | Iterable[str]) -> list[str]:
+        if isinstance(addrs, str):
+            raw = addrs
+            parts = [p.strip() for p in raw.replace(";", ",").replace(" ", ",").split(",") if p.strip()]
+        else:
+            parts: list[str] = []
+            for a in addrs:
+                parts.extend([p.strip() for p in str(a).replace(";", ",").replace(" ", ",").split(",") if p.strip()])
+        if not parts:
+            raise ValueError("No reward model addresses provided.")
+        return parts
+
+    def _build_backends(self, addrs: str | Iterable[str]) -> list[RuntimeEndpoint]:
+        parsed = self._parse_addresses(addrs)
+        return [RuntimeEndpoint(addr) for addr in parsed]
+
+    def _run_batch(self, sglang_function, inputs: List[dict[str, Any]]):
+        """Fan out batch requests across available backends and preserve ordering."""
+        if not inputs:
+            return []
+        if len(self.backends) == 1:
+            return sglang_function.run_batch(inputs, backend=self.backend)
+
+        total = len(inputs)
+        num_backends = len(self.backends)
+        results: list[Any] = [None] * total
+
+        # Simple even split
+        def _slice_indices(idx: int) -> range:
+            start = (total * idx) // num_backends
+            end = (total * (idx + 1)) // num_backends
+            return range(start, end)
+
+        with ThreadPoolExecutor(max_workers=num_backends) as pool:
+            futures = []
+            for b_idx, backend in enumerate(self.backends):
+                idx_range = _slice_indices(b_idx)
+                if len(idx_range) == 0:
+                    continue
+                chunk_inputs = [inputs[i] for i in idx_range]
+                futures.append(
+                    (
+                        idx_range,
+                        pool.submit(sglang_function.run_batch, chunk_inputs, backend=backend),
+                    )
+                )
+
+            for idx_range, fut in futures:
+                chunk_results = fut.result()
+                for offset, i in enumerate(idx_range):
+                    results[i] = chunk_results[offset]
+
+        return results
 
     def get_latest_rubric_path_and_iteration_index(self) -> tuple[str, int]:
         """
@@ -176,7 +232,7 @@ class RewardModel:
             s += assistant(gen("max_score", temperature=0.0, regex=r"\d+"))
 
         inputs = [{"rubric_item": item} for item in rubric_items]
-        states = _max_score_for_rubric_item.run_batch(inputs, backend=self.backend)
+        states = self._run_batch(_max_score_for_rubric_item, inputs)
 
         max_scores: list[float] = []
         for idx, state in enumerate(states):
@@ -328,9 +384,7 @@ class MetaRewardModel(RewardModel):
             ### Prescreening
             print(f"Prescreening {len(prescreen_inputs)} samples...")
             start_time = time()
-            states = self.mrm_prescreen.run_batch(
-                [{"prescreen_prompt": _input} for _input in prescreen_inputs], backend=self.backend
-            )
+            states = self._run_batch(self.mrm_prescreen, [{"prescreen_prompt": _input} for _input in prescreen_inputs])
             assert len(states) == len(inputs) == len(prescreen_inputs)
             prescreened_verdicts = []
             prescreened_ok_indices = []
@@ -377,7 +431,7 @@ class MetaRewardModel(RewardModel):
         analysis_and_refinement_inputs = [
             {"analyze_prompt": a_p, "refine_prompt": r_p} for a_p, r_p in zip(analyze_prompt_all, refine_prompt_all)
         ]
-        states = self.mrm_analyze_and_refine.run_batch(analysis_and_refinement_inputs, backend=self.backend)
+        states = self._run_batch(self.mrm_analyze_and_refine, analysis_and_refinement_inputs)
         analyses = []
         refinements = []
         for i, s in enumerate(states):

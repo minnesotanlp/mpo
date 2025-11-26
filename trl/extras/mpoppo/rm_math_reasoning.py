@@ -388,7 +388,7 @@ class RewardModelMathReasoning(RewardModel):
                 for p, e in zip(score_plan_prompts_all, score_execute_prompts_all)
             ]
 
-            states = self.rm_score.run_batch(inputs, backend=self.backend)
+            states = self._run_batch(self.rm_score, inputs)
             assert len(states) == len(llm_state_indices)
 
             for sample_idx, s in zip(llm_state_indices, states):
@@ -569,7 +569,7 @@ class MetaRewardModelMathReasoning(MetaRewardModel, RewardModelMathReasoning):
 
         print("Analysis and Refinment step...")
         start_time = time()
-        states = self.mrm_analyze_and_refine.run_batch(inputs, backend=self.backend)
+        states = self._run_batch(self.mrm_analyze_and_refine, inputs)
         assert len(inputs) == len(states) == (self.cluster_size * len(domain_cluster_guidelines.keys())) == len(logs)
         end_time = time()
         analysis_time = (end_time - start_time) / 60
