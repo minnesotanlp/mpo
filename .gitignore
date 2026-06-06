@@ -147,4 +147,4 @@ wandb/
 
 # model weights
 models/
-!trl/models/
+!trl/models/mpo_log_results_*/
